@@ -11,4 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 
 export const colors = {
   blue: "#0a80ec",
+  red: "#f3425f",
+  gray: "#82807f",
+  placeholderGray: "#67696d",
 };

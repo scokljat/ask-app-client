@@ -1,5 +1,5 @@
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import Home from "../pages/Home";
 import Questions from "../pages/Questions";
 import MyQuestions from "../pages/MyQuestions";

@@ -8,3 +8,7 @@ export const GlobalStyles = createGlobalStyle`
    font-family: 'Ruda', sans-serif;
   }
   `;
+
+export const colors = {
+  blue: "#0a80ec",
+};

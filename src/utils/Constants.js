@@ -15,3 +15,10 @@ export const routes = [
   { path: "/profile", page: <Profile /> },
   { path: "/*", page: <Error /> },
 ];
+
+export const navbarList = [
+  { route: "/dashboard", name: "Home" },
+  { route: "/questions", name: "Questions" },
+  { route: "/my-questions", name: "My questions" },
+  { route: "/profile", name: "Profile" },
+];

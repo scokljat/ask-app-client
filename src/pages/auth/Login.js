@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Button from "../../components/button/Button";
 import { ReactComponent as Mail } from "../../assets/images/mail.svg";
 import { ReactComponent as Eye } from "../../assets/images/eye.svg";
+import { login } from "../../store/actions/User";
+import { colors } from "../../globalStyles/GlobalStyles";
 import {
   Wrapper,
   Form,
@@ -12,10 +16,16 @@ import {
   InputWrapper,
   StyledInput,
 } from "./AuthStyle";
-import { colors } from "../../globalStyles/GlobalStyles";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state.reducerUser);
   const [passwordShown, setPasswordShown] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard?list=all-questions");
+  }, [isLoggedIn, navigate]);
 
   const {
     handleSubmit,
@@ -25,7 +35,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = (values) => {
-    console.log(values);
+    dispatch(login(values));
     reset();
   };
 

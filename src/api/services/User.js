@@ -11,6 +11,17 @@ const UserService = {
       return { error };
     }
   },
+
+  login: async (user) => {
+    const url = "/login";
+    try {
+      const { data } = await axios.post(url, user);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default UserService;

@@ -1,4 +1,4 @@
-import { REGISTER } from "../constants/ActionTypes";
+import { REGISTER, LOGIN } from "../constants/ActionTypes";
 
 const initialState = {
   user: {},
@@ -10,7 +10,9 @@ export const reducerUser = (state = initialState, { type, payload }) => {
     case REGISTER:
       localStorage.setItem("token", payload.accessToken);
       return { ...state, user: payload.user, isLoggedIn: true };
-
+    case LOGIN:
+      localStorage.setItem("token", payload.accessToken);
+      return { ...state, user: payload.user, isLoggedIn: true };
     default:
       return state;
   }

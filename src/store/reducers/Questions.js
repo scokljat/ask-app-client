@@ -2,6 +2,7 @@ import {
   FETCH_PAGINATED_QUESTIONS,
   FETCH_ALL_QUESTIONS,
   FETCH_USER_QUESTIONS,
+  FETCH_QUESTION_BY_ID,
   ADD_QUESTION,
 } from "../constants/ActionTypes";
 
@@ -9,6 +10,7 @@ const initialState = {
   paginatedQuestions: [],
   allQuestions: [],
   userQuestions: [],
+  question: {},
 };
 
 export const reducerQuestions = (state = initialState, { type, payload }) => {
@@ -19,6 +21,8 @@ export const reducerQuestions = (state = initialState, { type, payload }) => {
       return { ...state, allQuestions: payload.reverse() };
     case FETCH_USER_QUESTIONS:
       return { ...state, userQuestions: payload.reverse() };
+    case FETCH_QUESTION_BY_ID:
+      return { ...state, question: payload };
     case ADD_QUESTION:
       return {
         ...state,

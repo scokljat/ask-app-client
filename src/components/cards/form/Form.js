@@ -6,7 +6,7 @@ import { createQuestion } from "../../../store/actions/Questions";
 import { Text } from "../../../pages/auth/AuthStyle";
 import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
 
-function FormCard({ placeholder }) {
+function FormCard({ placeholder, width }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.reducerUser);
 
@@ -29,7 +29,7 @@ function FormCard({ placeholder }) {
   };
 
   return (
-    <Wrapper>
+    <Wrapper width={width}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <StyledTextArea
           {...register("question", {

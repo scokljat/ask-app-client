@@ -3,6 +3,7 @@ import {
   FETCH_PAGINATED_QUESTIONS,
   FETCH_ALL_QUESTIONS,
   FETCH_USER_QUESTIONS,
+  FETCH_QUESTION_BY_ID,
   ADD_QUESTION,
 } from "../constants/ActionTypes";
 
@@ -31,6 +32,16 @@ export const getUserQuestions = (id) => async (dispatch) => {
     const { data } = await QuestionsService.getUserQuestions(id);
 
     dispatch({ type: FETCH_USER_QUESTIONS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getQuestionById = (id) => async (dispatch) => {
+  try {
+    const { data } = await QuestionsService.getQuestionById(id);
+
+    dispatch({ type: FETCH_QUESTION_BY_ID, payload: data });
   } catch (error) {
     console.log(error);
   }

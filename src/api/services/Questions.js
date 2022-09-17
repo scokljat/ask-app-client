@@ -35,6 +35,17 @@ const QuestionsService = {
     }
   },
 
+  getQuestionById: async (id) => {
+    const url = `/questions/${id}/?_expand=user&_embed=answers&_embed=likes&_embed=dislikes`;
+    try {
+      const { data } = await axios.get(url);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
+
   createQuestion: async (question) => {
     const url = "/questions";
     try {

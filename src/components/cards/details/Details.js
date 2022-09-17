@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
 import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
@@ -12,7 +13,9 @@ import {
   Footer,
 } from "./DetailsStyle";
 
-function Details({ question }) {
+function Details({ question, setModalIsOpen, setId }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { isLoggedIn } = useSelector((state) => state.reducerUser);
 
   return (
@@ -23,7 +26,15 @@ function Details({ question }) {
       <Text color={colors.blue}>
         {question?.user?.firstName} {question?.user?.lastName}
       </Text>
-      <Description>{question?.content}</Description>
+      <Description
+        onClick={() => {
+          setModalIsOpen(true);
+          navigate(`${location.pathname}?modal=question-informations`);
+          setId(question?.id);
+        }}
+      >
+        {question?.content}
+      </Description>
 
       <Footer>
         <FooterContainer>

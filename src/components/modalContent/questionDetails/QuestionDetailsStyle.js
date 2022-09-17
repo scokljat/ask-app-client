@@ -26,6 +26,7 @@ export const Text = styled.p`
 export const QuestionStatistic = styled.div`
   display: flex;
   gap: 0.63rem;
+  margin-bottom: 0.63rem;
 `;
 
 export const CommentsContainer = styled.div`
@@ -33,7 +34,7 @@ export const CommentsContainer = styled.div`
   flex-direction: column;
   margin-top: 0.63rem;
   gap: 0.63rem;
-  height: 56vh;
+  height: 42vh;
   overflow: hidden;
   overflow-y: scroll;
 

@@ -11,6 +11,18 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  getAllQuestions: async () => {
+    const url =
+      "/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished";
+    try {
+      const { data } = await axios.get(url);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

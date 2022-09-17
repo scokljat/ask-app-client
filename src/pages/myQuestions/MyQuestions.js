@@ -11,14 +11,14 @@ function MyQuestions() {
   const { userQuestions } = useSelector((state) => state.reducerQuestions);
 
   useEffect(() => {
-    dispatch(getUserQuestions(user?.id ? user?.id : user?.sub));
-  }, [dispatch, user?.id, user?.sub]);
+    dispatch(getUserQuestions(user?.id));
+  }, [dispatch, user?.id]);
 
   return (
     <Wrapper>
       <CardWrapper height="85vh" width="100%">
         {userQuestions?.map((question) => {
-          return <Details question={question} key={question.id} />;
+          return <Details question={question} key={question?.id} />;
         })}
       </CardWrapper>
     </Wrapper>

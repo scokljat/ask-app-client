@@ -34,6 +34,17 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  createQuestion: async (question) => {
+    const url = "/questions";
+    try {
+      const { data } = await axios.post(url, question);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

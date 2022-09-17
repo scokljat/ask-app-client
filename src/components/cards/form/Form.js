@@ -1,10 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Play } from "../../../assets/images/play.svg";
 import Button from "../../button/Button";
+import { createQuestion } from "../../../store/actions/Questions";
 import { Text } from "../../../pages/auth/AuthStyle";
 import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
 
 function FormCard({ placeholder }) {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.reducerUser);
+
   const {
     handleSubmit,
     register,
@@ -13,7 +18,13 @@ function FormCard({ placeholder }) {
   } = useForm();
 
   const onSubmit = (values) => {
-    console.log(values);
+    dispatch(
+      createQuestion({
+        dateOfPublished: new Date(),
+        content: values.question,
+        userId: user?.id,
+      })
+    );
     reset();
   };
 

@@ -11,8 +11,8 @@ function MyQuestions() {
   const { userQuestions } = useSelector((state) => state.reducerQuestions);
 
   useEffect(() => {
-    dispatch(getUserQuestions(user?.id));
-  }, [dispatch, user?.id]);
+    dispatch(getUserQuestions(user?.id ? user?.id : user?.sub));
+  }, [dispatch, user?.id, user?.sub]);
 
   return (
     <Wrapper>

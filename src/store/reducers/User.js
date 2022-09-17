@@ -1,7 +1,10 @@
+import jwt_decode from "jwt-decode";
 import { REGISTER, LOGIN } from "../constants/ActionTypes";
 
 const initialState = {
-  user: {},
+  user: localStorage.getItem("token")
+    ? jwt_decode(localStorage.getItem("token"))
+    : {},
   isLoggedIn: localStorage.getItem("token") ? true : false,
 };
 

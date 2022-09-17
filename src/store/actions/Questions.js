@@ -2,6 +2,7 @@ import QuestionsService from "../../api/services/Questions";
 import {
   FETCH_PAGINATED_QUESTIONS,
   FETCH_ALL_QUESTIONS,
+  FETCH_USER_QUESTIONS,
 } from "../constants/ActionTypes";
 
 export const getPaginatedQuestions = (pageSize) => async (dispatch) => {
@@ -19,6 +20,16 @@ export const getAllQuestions = () => async (dispatch) => {
     const { data } = await QuestionsService.getAllQuestions();
 
     dispatch({ type: FETCH_ALL_QUESTIONS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserQuestions = (id) => async (dispatch) => {
+  try {
+    const { data } = await QuestionsService.getUserQuestions(id);
+
+    dispatch({ type: FETCH_USER_QUESTIONS, payload: data });
   } catch (error) {
     console.log(error);
   }

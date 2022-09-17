@@ -23,6 +23,17 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  getUserQuestions: async (id) => {
+    const url = `/questions?userId=${id}&_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished`;
+    try {
+      const { data } = await axios.get(url);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

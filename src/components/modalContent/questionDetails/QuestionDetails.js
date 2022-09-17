@@ -58,7 +58,7 @@ function QuestionDetails({ setModalIsOpen, id }) {
         <Text>{question?.answers?.length} comments</Text>
       </QuestionStatistic>
       <FormCard
-        width="95%"
+        isAnswer={true}
         placeholder="Enter answer..."
         questionId={question?.id}
       />

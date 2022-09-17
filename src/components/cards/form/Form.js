@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { ReactComponent as Play } from "../../../assets/images/play.svg";
 import Button from "../../button/Button";
 import { createQuestion } from "../../../store/actions/Questions";
+import { createAnswer } from "../../../store/actions/Answers";
 import { Text } from "../../../pages/auth/AuthStyle";
 import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
 
-function FormCard({ placeholder, width }) {
+function FormCard({ placeholder, isAnswer, questionId }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.reducerUser);
 
@@ -18,18 +19,29 @@ function FormCard({ placeholder, width }) {
   } = useForm();
 
   const onSubmit = (values) => {
-    dispatch(
-      createQuestion({
-        dateOfPublished: new Date(),
-        content: values.question,
-        userId: user?.id,
-      })
-    );
+    if (isAnswer) {
+      dispatch(
+        createAnswer({
+          userId: user.id,
+          questionId: questionId,
+          dateOfPublished: new Date(),
+          content: values.question,
+        })
+      );
+    } else {
+      dispatch(
+        createQuestion({
+          dateOfPublished: new Date(),
+          content: values.question,
+          userId: user?.id,
+        })
+      );
+    }
     reset();
   };
 
   return (
-    <Wrapper width={width}>
+    <Wrapper isAnswer={isAnswer}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <StyledTextArea
           {...register("question", {

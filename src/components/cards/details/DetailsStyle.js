@@ -12,6 +12,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 0.63rem;
 
+  @media (max-width: 1300px) {
+    width: 93%;
+  }
+
   @media (max-width: 968px) {
     width: 90%;
   }

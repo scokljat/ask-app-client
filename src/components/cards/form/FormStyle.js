@@ -3,10 +3,14 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   color: ${({ theme }) => theme.textPrimary};
   padding: 0.63rem;
-  width: ${({ width }) => width || "60%"};
+  width: ${({ isAnswer }) => (isAnswer ? "95%" : "60%")};
   background: ${({ theme }) => theme.bgComponent};
   border-radius: 0.31rem;
   border: 0.06rem solid ${({ theme }) => theme.background};
+
+  @media (max-width: 1300px) {
+    width: 93%;
+  }
 
   @media (max-width: 1000px) {
     width: 90%;

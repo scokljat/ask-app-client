@@ -13,13 +13,13 @@ import {
   Footer,
 } from "./DetailsStyle";
 
-function Details({ question, setModalIsOpen, setId }) {
+function Details({ question, setModalIsOpen, setId, width }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn } = useSelector((state) => state.reducerUser);
 
   return (
-    <Wrapper>
+    <Wrapper width={width}>
       <Text>
         {FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
       </Text>

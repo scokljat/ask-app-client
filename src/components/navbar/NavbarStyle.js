@@ -38,7 +38,7 @@ export const LinksContainer = styled.div`
 
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.textSecondary};
   white-space: nowrap;
 
   &.active {

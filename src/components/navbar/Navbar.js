@@ -23,7 +23,6 @@ function Navbar() {
         </LinksContainer>
         <Button
           title="Log out"
-          width="6%"
           height="1.8rem"
           icon={<Logout style={{ marginRight: "0.3rem" }} />}
         />

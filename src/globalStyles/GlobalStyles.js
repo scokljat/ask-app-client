@@ -6,6 +6,8 @@ export const GlobalStyles = createGlobalStyle`
    padding:0;
    background: ${({ theme }) => theme.background};
    font-family: 'Ruda', sans-serif;
+   overflow:hidden;
+   height:100vh;
   }
   `;
 

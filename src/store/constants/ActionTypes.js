@@ -7,4 +7,4 @@ export const FETCH_USER_QUESTIONS = "FETCH_USER_QUESTIONS";
 export const FETCH_QUESTION_BY_ID = "FETCH_QUESTION_BY_ID";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const FETCH_ANSWERS = "FETCH_ANSWERS";
-export const ADD_ANSWER = "ADD_ANSWER,";
+export const ADD_ANSWER = "ADD_ANSWER";

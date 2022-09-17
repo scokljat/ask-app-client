@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   gap: 0.63rem;
 
   @media (max-width: 968px) {
-    width: 95%;
+    width: 90%;
   }
 `;
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors } from "../../globalStyles/GlobalStyles";
 
 export const StyledButton = styled.button`
-  width: fit-content;
+  width: ${({ width }) => width || "fit-content"};
   background: ${({ color }) => color || colors.blue};
   height: ${({ height }) => height};
   border-radius: 0.3rem;

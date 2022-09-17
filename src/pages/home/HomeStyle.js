@@ -31,6 +31,7 @@ export const CardWrapper = styled.div`
   overflow: hidden;
   overflow-y: scroll;
   height: ${({ height }) => height};
+  width: ${({ width }) => width};
 
   ::-webkit-scrollbar {
     display: none;
@@ -40,7 +41,7 @@ export const CardWrapper = styled.div`
   -ms-overflow-style: none;
 
   @media (max-width: 640px) {
-    width: 90%;
+    width: 100%;
     overflow: hidden;
     overflow-y: scroll;
     height: 85vh;

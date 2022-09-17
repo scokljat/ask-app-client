@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { ReactComponent as Like } from "../../assets/images/thumbs-up.svg";
-import { ReactComponent as Dislike } from "../../assets/images/thumbs-down.svg";
-import Button from "../button/Button";
-import FormatUtils from "../../utils/FormatUtils";
-import { colors } from "../../globalStyles/GlobalStyles";
+import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
+import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
+import Button from "../../button/Button";
+import FormatUtils from "../../../utils/FormatUtils";
+import { colors } from "../../../globalStyles/GlobalStyles";
 import {
   Wrapper,
   Text,

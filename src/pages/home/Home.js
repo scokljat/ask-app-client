@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Details from "../../components/cards/Details";
+import Details from "../../components/cards/details/Details";
 import { getPaginatedQuestions } from "../../store/actions/Questions";
 import {
   Wrapper,

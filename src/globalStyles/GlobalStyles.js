@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   body {
@@ -17,3 +18,12 @@ export const colors = {
   gray: "#82807f",
   placeholderGray: "#67696d",
 };
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1.8rem 3.7rem;
+  gap: 1.25rem;
+`;

@@ -1,9 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
 import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
 import Button from "../../button/Button";
 import FormatUtils from "../../../utils/FormatUtils";
+import { likeQuestion } from "../../../store/actions/Questions";
 import { colors } from "../../../globalStyles/GlobalStyles";
 import {
   Wrapper,
@@ -13,10 +14,11 @@ import {
   Footer,
 } from "./DetailsStyle";
 
-function Details({ question, setModalIsOpen, setId, width }) {
+function Details({ question, setModalIsOpen, setId, width, pageSize }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoggedIn } = useSelector((state) => state.reducerUser);
+  const dispatch = useDispatch();
+  const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
 
   return (
     <Wrapper width={width}>
@@ -44,6 +46,18 @@ function Details({ question, setModalIsOpen, setId, width }) {
               title="Like"
               height="1.8rem"
               icon={<Like style={{ marginRight: "0.3rem" }} />}
+              onClick={() =>
+                dispatch(
+                  likeQuestion(
+                    {
+                      userId: user?.id,
+                      questionId: question?.id,
+                    },
+                    location.pathname,
+                    pageSize
+                  )
+                )
+              }
             />
           )}
         </FooterContainer>

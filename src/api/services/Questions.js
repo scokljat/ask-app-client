@@ -56,6 +56,17 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  likeQuestion: async (likedQuestion) => {
+    const url = "/likes";
+    try {
+      const { data } = await axios.post(url, likedQuestion);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

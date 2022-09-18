@@ -58,3 +58,20 @@ export const createQuestion = (question) => async (dispatch, getState) => {
     console.log(error);
   }
 };
+
+export const likeQuestion =
+  (likedQuestion, page, pageSize) => async (dispatch) => {
+    try {
+      await QuestionsService.likeQuestion(likedQuestion);
+
+      if (page === "/questions") {
+        dispatch(getAllQuestions());
+      } else if (page === "/dashboard") {
+        dispatch(getPaginatedQuestions(pageSize));
+      } else {
+        dispatch(getUserQuestions(likedQuestion.userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -31,3 +31,13 @@ export const likeAnswer = (likedAnswer) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const dislikeAnswer = (dislikedAnswer) => async (dispatch) => {
+  try {
+    await AnswersService.dislikeAnswer(dislikedAnswer);
+
+    dispatch(getAnswers(dislikedAnswer.questionId));
+  } catch (error) {
+    console.log(error);
+  }
+};

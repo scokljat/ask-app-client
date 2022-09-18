@@ -8,7 +8,7 @@ import {
   likeQuestion,
   dislikeQuestion,
 } from "../../../store/actions/Questions";
-import { likeAnswer } from "../../../store/actions/Answers";
+import { likeAnswer, dislikeAnswer } from "../../../store/actions/Answers";
 import { colors } from "../../../globalStyles/GlobalStyles";
 import {
   Wrapper,
@@ -31,7 +31,7 @@ function Details({
   const location = useLocation();
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
-
+  console.log(question);
   return (
     <Wrapper width={width}>
       <Text>
@@ -87,25 +87,40 @@ function Details({
           )}
         </FooterContainer>
         <FooterContainer>
-          <Text>{question?.dislikes?.length} dislikes</Text>
+          <Text>
+            {isAnswer
+              ? question?.answerDislikes?.length
+              : question?.dislikes?.length}{" "}
+            dislikes
+          </Text>
           {isLoggedIn && (
             <Button
               title="Dislike"
               height="1.8rem"
               color={colors.red}
               icon={<Dislike style={{ marginRight: "0.3rem" }} />}
-              onClick={() =>
-                dispatch(
-                  dislikeQuestion(
-                    {
+              onClick={() => {
+                if (isAnswer) {
+                  dispatch(
+                    dislikeAnswer({
                       userId: user?.id,
-                      questionId: question?.id,
-                    },
-                    location.pathname,
-                    pageSize
-                  )
-                )
-              }
+                      answerId: question?.id,
+                      questionId: questionId,
+                    })
+                  );
+                } else {
+                  dispatch(
+                    dislikeQuestion(
+                      {
+                        userId: user?.id,
+                        questionId: question?.id,
+                      },
+                      location.pathname,
+                      pageSize
+                    )
+                  );
+                }
+              }}
             />
           )}
         </FooterContainer>

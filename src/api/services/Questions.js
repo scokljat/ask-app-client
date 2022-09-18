@@ -67,6 +67,18 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  dislikeQuestion: async (dislikedQuestion) => {
+    console.log(dislikedQuestion);
+    const url = "/dislikes";
+    try {
+      const { data } = await axios.post(url, dislikedQuestion);
+      console.log(data);
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

@@ -55,7 +55,7 @@ function QuestionDetails({ setModalIsOpen, id }) {
       <QuestionStatistic>
         <Text>{question?.likes?.length} likes</Text>
         <Text>{question?.dislikes?.length} dislikes</Text>
-        <Text>{question?.answers?.length} comments</Text>
+        <Text>{answers?.length} comments</Text>
       </QuestionStatistic>
       <FormCard
         isAnswer={true}
@@ -72,7 +72,13 @@ function QuestionDetails({ setModalIsOpen, id }) {
           </Text>
         ) : (
           answers?.map((answer) => (
-            <Details question={answer} key={answer.id} width="95%" />
+            <Details
+              question={answer}
+              key={answer.id}
+              width="95%"
+              isAnswer={true}
+              questionId={question?.id}
+            />
           ))
         )}
       </CommentsContainer>

@@ -75,3 +75,20 @@ export const likeQuestion =
       console.log(error);
     }
   };
+
+export const dislikeQuestion =
+  (dislikedQuestion, page, pageSize) => async (dispatch) => {
+    try {
+      await QuestionsService.dislikeQuestion(dislikedQuestion);
+
+      if (page === "/questions") {
+        dispatch(getAllQuestions());
+      } else if (page === "/dashboard") {
+        dispatch(getPaginatedQuestions(pageSize));
+      } else {
+        dispatch(getUserQuestions(dislikedQuestion.userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };

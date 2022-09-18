@@ -21,3 +21,13 @@ export const createAnswer = (answer) => async (dispatch, getState) => {
     console.log(error);
   }
 };
+
+export const likeAnswer = (likedAnswer) => async (dispatch) => {
+  try {
+    await AnswersService.likeAnswer(likedAnswer);
+
+    dispatch(getAnswers(likedAnswer.questionId));
+  } catch (error) {
+    console.log(error);
+  }
+};

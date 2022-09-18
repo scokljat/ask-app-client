@@ -4,7 +4,11 @@ import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
 import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
 import Button from "../../button/Button";
 import FormatUtils from "../../../utils/FormatUtils";
-import { likeQuestion } from "../../../store/actions/Questions";
+import {
+  likeQuestion,
+  dislikeQuestion,
+} from "../../../store/actions/Questions";
+import { likeAnswer } from "../../../store/actions/Answers";
 import { colors } from "../../../globalStyles/GlobalStyles";
 import {
   Wrapper,
@@ -14,7 +18,15 @@ import {
   Footer,
 } from "./DetailsStyle";
 
-function Details({ question, setModalIsOpen, setId, width, pageSize }) {
+function Details({
+  question,
+  setModalIsOpen,
+  setId,
+  width,
+  pageSize,
+  isAnswer,
+  questionId,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -40,24 +52,37 @@ function Details({ question, setModalIsOpen, setId, width, pageSize }) {
 
       <Footer>
         <FooterContainer>
-          <Text>{question?.likes?.length} likes</Text>
+          <Text>
+            {isAnswer ? question?.answerLikes?.length : question?.likes?.length}{" "}
+            likes
+          </Text>
           {isLoggedIn && (
             <Button
               title="Like"
               height="1.8rem"
               icon={<Like style={{ marginRight: "0.3rem" }} />}
-              onClick={() =>
-                dispatch(
-                  likeQuestion(
-                    {
+              onClick={() => {
+                if (isAnswer) {
+                  dispatch(
+                    likeAnswer({
                       userId: user?.id,
-                      questionId: question?.id,
-                    },
-                    location.pathname,
-                    pageSize
-                  )
-                )
-              }
+                      answerId: question?.id,
+                      questionId: questionId,
+                    })
+                  );
+                } else {
+                  dispatch(
+                    likeQuestion(
+                      {
+                        userId: user?.id,
+                        questionId: question?.id,
+                      },
+                      location.pathname,
+                      pageSize
+                    )
+                  );
+                }
+              }}
             />
           )}
         </FooterContainer>
@@ -69,6 +94,18 @@ function Details({ question, setModalIsOpen, setId, width, pageSize }) {
               height="1.8rem"
               color={colors.red}
               icon={<Dislike style={{ marginRight: "0.3rem" }} />}
+              onClick={() =>
+                dispatch(
+                  dislikeQuestion(
+                    {
+                      userId: user?.id,
+                      questionId: question?.id,
+                    },
+                    location.pathname,
+                    pageSize
+                  )
+                )
+              }
             />
           )}
         </FooterContainer>

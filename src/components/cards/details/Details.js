@@ -21,7 +21,6 @@ import {
 function Details({
   question,
   setModalIsOpen,
-  setId,
   width,
   pageSize,
   isAnswer,
@@ -31,7 +30,7 @@ function Details({
   const location = useLocation();
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
-  console.log(question);
+
   return (
     <Wrapper width={width}>
       <Text>
@@ -43,8 +42,7 @@ function Details({
       <Description
         onClick={() => {
           setModalIsOpen(true);
-          navigate(`${location.pathname}?modal=question-informations`);
-          setId(question?.id);
+          navigate(`${location.pathname}?question=${question.id}`);
         }}
       >
         {question?.content}

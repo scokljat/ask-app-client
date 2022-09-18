@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserQuestions } from "../../store/actions/Questions";
 import Details from "../../components/cards/details/Details";
@@ -7,23 +8,26 @@ import QuestionDetails from "../../components/modalContent/questionDetails/Quest
 import { CardWrapper } from "../home/HomeStyle";
 import { Wrapper } from "../../globalStyles/GlobalStyles";
 
+let searchQuestionId;
 function MyQuestions() {
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   const { user } = useSelector((state) => state.reducerUser);
   const { userQuestions } = useSelector((state) => state.reducerQuestions);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [id, setId] = useState(0);
+  searchQuestionId = searchParams.get("question");
 
   useEffect(() => {
     dispatch(getUserQuestions(user?.id));
+    if (searchQuestionId) setModalIsOpen(true);
   }, [dispatch, user?.id]);
 
   return (
     <Wrapper>
       {modalIsOpen && (
         <Modal setIsOpen={setModalIsOpen}>
-          <QuestionDetails id={id} setModalIsOpen={setModalIsOpen} />
+          <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
       <CardWrapper height="85vh" width="100%">
@@ -33,7 +37,6 @@ function MyQuestions() {
               question={question}
               key={question?.id}
               setModalIsOpen={setModalIsOpen}
-              setId={setId}
             />
           );
         })}

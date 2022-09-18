@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Details from "../../components/cards/details/Details";
 import FormCard from "../../components/cards/form/Form";
@@ -8,23 +9,25 @@ import { getAllQuestions } from "../../store/actions/Questions";
 import { Wrapper } from "../../globalStyles/GlobalStyles";
 import { CardWrapper } from "../home/HomeStyle";
 
+let searchQuestionId;
 function Questions() {
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   const { allQuestions } = useSelector((state) => state.reducerQuestions);
   const { isLoggedIn } = useSelector((state) => state.reducerUser);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [id, setId] = useState(0);
+  searchQuestionId = searchParams.get("question");
 
   useEffect(() => {
     dispatch(getAllQuestions());
+    if (searchQuestionId) setModalIsOpen(true);
   }, [dispatch]);
 
   return (
     <Wrapper>
       {modalIsOpen && (
         <Modal setIsOpen={setModalIsOpen}>
-          <QuestionDetails id={id} setModalIsOpen={setModalIsOpen} />
+          <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
       {isLoggedIn && <FormCard placeholder="What's on your mind ..." />}
@@ -34,7 +37,6 @@ function Questions() {
             question={question}
             key={question.id}
             setModalIsOpen={setModalIsOpen}
-            setId={setId}
           />
         ))}
       </CardWrapper>

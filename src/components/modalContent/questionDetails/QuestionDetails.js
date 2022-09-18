@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Close } from "../../../assets/images/close.svg";
 import FormCard from "../../cards/form/Form";
@@ -16,16 +16,19 @@ import {
   CommentsContainer,
 } from "./QuestionDetailsStyle";
 
-function QuestionDetails({ setModalIsOpen, id }) {
+let searchQuestionId;
+function QuestionDetails({ setModalIsOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   const { question } = useSelector((state) => state.reducerQuestions);
   const { answers } = useSelector((state) => state.reducerAnswers);
+  searchQuestionId = searchParams.get("question");
 
   useEffect(() => {
-    dispatch(getQuestionById(id));
-    dispatch(getAnswers(id));
-  }, [dispatch, id]);
+    dispatch(getQuestionById(searchQuestionId));
+    dispatch(getAnswers(searchQuestionId));
+  }, [dispatch]);
 
   return (
     <Wrapper onClick={(e) => e.stopPropagation()}>

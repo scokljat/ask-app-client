@@ -13,25 +13,27 @@ import {
 } from "./HomeStyle";
 import { homeList } from "../../utils/Constants";
 
+let searchQuestionId;
 function Home() {
   const defaultPageSize = 20;
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const { paginatedQuestions } = useSelector((state) => state.reducerQuestions);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
 
+  const [pageSize, setPageSize] = useState(defaultPageSize);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [id, setId] = useState(0);
+  searchQuestionId = searchParams.get("question");
 
   useEffect(() => {
     dispatch(getPaginatedQuestions(pageSize));
+    if (searchQuestionId) setModalIsOpen(true);
   }, [dispatch, pageSize]);
-  console.log(id);
+
   return (
     <Wrapper>
       {modalIsOpen && (
         <Modal setIsOpen={setModalIsOpen}>
-          <QuestionDetails id={id} setModalIsOpen={setModalIsOpen} />
+          <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
       <LinkContainer>
@@ -50,7 +52,6 @@ function Home() {
                 key={question.id}
                 pageSize={pageSize}
                 setModalIsOpen={setModalIsOpen}
-                setId={setId}
               />
             );
           })}

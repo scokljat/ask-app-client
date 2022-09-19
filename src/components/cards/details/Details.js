@@ -7,6 +7,7 @@ import FormatUtils from "../../../utils/FormatUtils";
 import {
   likeQuestion,
   dislikeQuestion,
+  deleteQuestion,
 } from "../../../store/actions/Questions";
 import { likeAnswer, dislikeAnswer } from "../../../store/actions/Answers";
 import { colors } from "../../../globalStyles/GlobalStyles";
@@ -14,6 +15,7 @@ import {
   Wrapper,
   Text,
   Description,
+  ButtonContainer,
   FooterContainer,
   Footer,
 } from "./DetailsStyle";
@@ -30,15 +32,39 @@ function Details({
   const location = useLocation();
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
-
+  console.log(question);
   return (
     <Wrapper width={width}>
-      <Text>
-        {FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
-      </Text>
-      <Text color={colors.blue}>
-        {question?.user?.firstName} {question?.user?.lastName}
-      </Text>
+      <Footer>
+        <div>
+          <Text>
+            {FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
+          </Text>
+          <Text color={colors.blue}>
+            {question?.user?.firstName} {question?.user?.lastName}
+          </Text>
+        </div>
+        {question.user.id === user.id && (
+          <ButtonContainer>
+            <Button title="Edit" height="1.4rem" />
+            <Button
+              title="Delete"
+              height="1.4rem"
+              color={colors.red}
+              onClick={() =>
+                dispatch(
+                  deleteQuestion(
+                    question?.id,
+                    location.pathname,
+                    pageSize,
+                    user?.id
+                  )
+                )
+              }
+            />
+          </ButtonContainer>
+        )}
+      </Footer>
       <Description
         onClick={() => {
           setModalIsOpen(true);

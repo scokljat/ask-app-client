@@ -43,3 +43,8 @@ export const FooterContainer = styled.div`
   flex-direction: column;
   gap: 0.63rem;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 0.63rem;
+`;

@@ -92,3 +92,19 @@ export const dislikeQuestion =
       console.log(error);
     }
   };
+
+export const deleteQuestion =
+  (questionId, page, pageSize, userId) => async (dispatch) => {
+    try {
+      await QuestionsService.deleteQuestion(questionId);
+      if (page === "/questions") {
+        dispatch(getAllQuestions());
+      } else if (page === "/dashboard") {
+        dispatch(getPaginatedQuestions(pageSize));
+      } else {
+        dispatch(getUserQuestions(userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -79,6 +79,15 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  deleteQuestion: async (id) => {
+    const url = `/questions/${id}`;
+    try {
+      await axios.delete(url);
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

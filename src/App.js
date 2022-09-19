@@ -11,7 +11,8 @@ import jwtDecode from "jwt-decode";
 
 function App() {
   const dispatch = useDispatch();
-  const user = jwtDecode(localStorage.getItem("token"));
+  const user =
+    localStorage.getItem("token") && jwtDecode(localStorage.getItem("token"));
 
   useEffect(() => {
     if (user) dispatch(getUserById(user.sub));

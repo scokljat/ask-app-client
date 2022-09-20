@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Wrapper, Content } from "./ModalStyle";
 
-function Modal({ children, setIsOpen }) {
+function Modal({ children, setIsOpen, isEdit }) {
   const navigate = useNavigate();
 
   return (
@@ -11,7 +11,7 @@ function Modal({ children, setIsOpen }) {
         navigate(-1);
       }}
     >
-      <Content>{children}</Content>
+      <Content isEdit={isEdit}>{children}</Content>
     </Wrapper>
   );
 }

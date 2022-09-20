@@ -1,22 +1,46 @@
+import { useEffect } from "react";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Play } from "../../../assets/images/play.svg";
 import Button from "../../button/Button";
-import { createQuestion } from "../../../store/actions/Questions";
+import {
+  createQuestion,
+  getQuestionById,
+  updateQuestion,
+} from "../../../store/actions/Questions";
 import { createAnswer } from "../../../store/actions/Answers";
-import { Text } from "../../../pages/auth/AuthStyle";
 import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
+import { Text } from "../../modalContent/questionDetails/QuestionDetailsStyle";
 
-function FormCard({ placeholder, isAnswer, questionId }) {
+let searchQuestion;
+function FormCard({
+  placeholder,
+  isAnswer,
+  questionId,
+  isEdit,
+  setEditModalIsOpen,
+  pageSize,
+}) {
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const { user } = useSelector((state) => state.reducerUser);
+  const { question } = useSelector((state) => state.reducerQuestions);
+  searchQuestion = searchParams.get("edit");
+  console.log(question, pageSize);
+  useEffect(() => {
+    if (searchQuestion) dispatch(getQuestionById(searchQuestion));
+  }, [dispatch]);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: { question: searchQuestion && question?.content },
+  });
 
   const onSubmit = (values) => {
     if (isAnswer) {
@@ -28,6 +52,20 @@ function FormCard({ placeholder, isAnswer, questionId }) {
           content: values.question,
         })
       );
+    } else if (isEdit) {
+      dispatch(
+        updateQuestion(
+          {
+            id: question?.id,
+            dateOfPublished: question?.dateOfPublished,
+            content: values.question,
+            userId: question?.userId,
+          },
+          location.pathname,
+          pageSize
+        )
+      );
+      setEditModalIsOpen(false);
     } else {
       dispatch(
         createQuestion({
@@ -39,11 +77,28 @@ function FormCard({ placeholder, isAnswer, questionId }) {
     }
     reset();
   };
-
+  console.log(question);
   return (
-    <Wrapper isAnswer={isAnswer}>
+    <Wrapper
+      isAnswer={isAnswer}
+      isEdit={isEdit}
+      onClick={(e) => e.stopPropagation()}
+    >
       <Form onSubmit={handleSubmit(onSubmit)}>
+        {isEdit && (
+          <Text
+            color="#0a80ec"
+            style={{
+              marginBottom: "10px",
+              fontSize: "17px",
+              fontWeight: "bold",
+            }}
+          >
+            Edit
+          </Text>
+        )}
         <StyledTextArea
+          isEdit={isEdit}
           {...register("question", {
             required: "Content is required!",
             maxLength: {

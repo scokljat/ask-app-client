@@ -108,3 +108,19 @@ export const deleteQuestion =
       console.log(error);
     }
   };
+
+export const updateQuestion =
+  (updatedQuestion, page, pageSize) => async (dispatch) => {
+    try {
+      await QuestionsService.updateQuestion(updatedQuestion);
+      if (page === "/questions") {
+        dispatch(getAllQuestions());
+      } else if (page === "/dashboard") {
+        dispatch(getPaginatedQuestions(pageSize));
+      } else {
+        dispatch(getUserQuestions(updatedQuestion.userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   color: ${({ theme }) => theme.textPrimary};
   padding: 0.63rem;
-  width: ${({ isAnswer }) => (isAnswer ? "95%" : "60%")};
+  width: ${({ isAnswer, isEdit }) =>
+    isAnswer ? "95%" : isEdit ? "100" : "60%"};
+  height: ${({ isEdit }) => isEdit && "100%"};
   background: ${({ theme }) => theme.bgComponent};
   border-radius: 0.31rem;
   border: 0.06rem solid ${({ theme }) => theme.background};
@@ -19,7 +21,7 @@ export const Wrapper = styled.div`
 
 export const StyledTextArea = styled.textarea`
   width: 100%;
-  height: 2.5rem;
+  height: ${({ isEdit }) => (isEdit ? "3.5rem" : "2.5rem")};
   border-radius: 0.31rem;
   border: 0;
   align-items: center;

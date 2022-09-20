@@ -88,6 +88,16 @@ const QuestionsService = {
       return { error };
     }
   },
+
+  updateQuestion: async (updatedQuestion) => {
+    console.log(updatedQuestion, "servis");
+    const url = `/questions/${updatedQuestion.id}`;
+    try {
+      await axios.put(url, updatedQuestion);
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default QuestionsService;

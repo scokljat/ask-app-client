@@ -41,3 +41,12 @@ export const dislikeAnswer = (dislikedAnswer) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const deleteAnswer = (answerId, questionId) => async (dispatch) => {
+  try {
+    await AnswersService.deleteAnswer(answerId);
+    dispatch(getAnswers(questionId));
+  } catch (error) {
+    console.log(error);
+  }
+};

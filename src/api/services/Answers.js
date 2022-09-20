@@ -44,6 +44,15 @@ const AnswersService = {
       return { error };
     }
   },
+
+  deleteAnswer: async (id) => {
+    const url = `/answers/${id}`;
+    try {
+      await axios.delete(url);
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default AnswersService;

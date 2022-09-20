@@ -20,4 +20,5 @@ export const Content = styled.div`
   border-radius: 0.5rem;
   cursor: default;
   width: 40%;
+  height: ${({ isEdit }) => isEdit && "20%"};
 `;

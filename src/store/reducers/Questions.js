@@ -3,6 +3,7 @@ import {
   FETCH_ALL_QUESTIONS,
   FETCH_USER_QUESTIONS,
   FETCH_QUESTION_BY_ID,
+  FETCH_HOT_QUESTIONS,
   ADD_QUESTION,
 } from "../constants/ActionTypes";
 
@@ -10,6 +11,7 @@ const initialState = {
   paginatedQuestions: [],
   allQuestions: [],
   userQuestions: [],
+  hotQuestions: [],
   question: {},
 };
 
@@ -23,6 +25,8 @@ export const reducerQuestions = (state = initialState, { type, payload }) => {
       return { ...state, userQuestions: payload.reverse() };
     case FETCH_QUESTION_BY_ID:
       return { ...state, question: payload };
+    case FETCH_HOT_QUESTIONS:
+      return { ...state, hotQuestions: payload.reverse() };
     case ADD_QUESTION:
       return {
         ...state,

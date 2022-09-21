@@ -46,6 +46,18 @@ const QuestionsService = {
     }
   },
 
+  getHotQuestions: async () => {
+    const url =
+      "/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=numberOfLikes";
+    try {
+      const { data } = await axios.get(url);
+
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
+
   createQuestion: async (question) => {
     const url = "/questions";
     try {
@@ -94,6 +106,17 @@ const QuestionsService = {
     const url = `/questions/${updatedQuestion.id}`;
     try {
       await axios.put(url, updatedQuestion);
+    } catch (error) {
+      return { error };
+    }
+  },
+
+  increaseQuestionLikes: async (likedQuestion) => {
+    const url = `/questions/${likedQuestion.id}`;
+    try {
+      const { data } = await axios.put(url, likedQuestion);
+
+      return { data };
     } catch (error) {
       return { error };
     }

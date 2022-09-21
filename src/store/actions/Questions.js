@@ -4,6 +4,7 @@ import {
   FETCH_ALL_QUESTIONS,
   FETCH_USER_QUESTIONS,
   FETCH_QUESTION_BY_ID,
+  FETCH_HOT_QUESTIONS,
   ADD_QUESTION,
 } from "../constants/ActionTypes";
 
@@ -47,6 +48,16 @@ export const getQuestionById = (id) => async (dispatch) => {
   }
 };
 
+export const getHotQuestions = () => async (dispatch) => {
+  try {
+    const { data } = await QuestionsService.getHotQuestions();
+
+    dispatch({ type: FETCH_HOT_QUESTIONS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createQuestion = (question) => async (dispatch, getState) => {
   const user = getState().reducerUser.user;
 
@@ -60,9 +71,10 @@ export const createQuestion = (question) => async (dispatch, getState) => {
 };
 
 export const likeQuestion =
-  (likedQuestion, page, pageSize) => async (dispatch) => {
+  (likedQuestion, question, page, pageSize) => async (dispatch) => {
     try {
       await QuestionsService.likeQuestion(likedQuestion);
+      await QuestionsService.increaseQuestionLikes(question);
 
       if (page === "/questions") {
         dispatch(getAllQuestions());

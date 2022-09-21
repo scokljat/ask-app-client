@@ -50,3 +50,13 @@ export const deleteAnswer = (answerId, questionId) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const updateAnswer = (updatedAnswer) => async (dispatch) => {
+  try {
+    await AnswersService.updateAnswer(updatedAnswer);
+
+    dispatch(getAnswers(updatedAnswer.questionId));
+  } catch (error) {
+    console.log(error);
+  }
+};

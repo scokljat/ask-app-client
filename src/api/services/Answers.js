@@ -53,6 +53,15 @@ const AnswersService = {
       return { error };
     }
   },
+
+  updateAnswer: async (updatedAnswer) => {
+    const url = `/answers/${updatedAnswer.id}`;
+    try {
+      await axios.put(url, updatedAnswer);
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export default AnswersService;

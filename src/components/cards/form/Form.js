@@ -9,7 +9,7 @@ import {
   getQuestionById,
   updateQuestion,
 } from "../../../store/actions/Questions";
-import { createAnswer } from "../../../store/actions/Answers";
+import { createAnswer, updateAnswer } from "../../../store/actions/Answers";
 import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
 import { Text } from "../../modalContent/questionDetails/QuestionDetailsStyle";
 
@@ -21,14 +21,14 @@ function FormCard({
   isEdit,
   setEditModalIsOpen,
   pageSize,
+  question,
 }) {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const { user } = useSelector((state) => state.reducerUser);
-  const { question } = useSelector((state) => state.reducerQuestions);
   searchQuestion = searchParams.get("edit");
-  console.log(question, pageSize);
+
   useEffect(() => {
     if (searchQuestion) dispatch(getQuestionById(searchQuestion));
   }, [dispatch]);
@@ -43,7 +43,7 @@ function FormCard({
   });
 
   const onSubmit = (values) => {
-    if (isAnswer) {
+    if (isAnswer && !isEdit) {
       dispatch(
         createAnswer({
           userId: user.id,
@@ -52,7 +52,7 @@ function FormCard({
           content: values.question,
         })
       );
-    } else if (isEdit) {
+    } else if (isEdit && !isAnswer) {
       dispatch(
         updateQuestion(
           {
@@ -66,18 +66,30 @@ function FormCard({
         )
       );
       setEditModalIsOpen(false);
+    } else if (isAnswer && isEdit) {
+      dispatch(
+        updateAnswer({
+          id: question?.id,
+          dateOfPublished: question?.dateOfPublished,
+          content: values.question,
+          userId: question?.userId,
+          questionId: questionId,
+        })
+      );
+      setEditModalIsOpen(false);
     } else {
       dispatch(
         createQuestion({
           dateOfPublished: new Date(),
           content: values.question,
           userId: user?.id,
+          numberOfLikes: 0,
         })
       );
     }
     reset();
   };
-  console.log(question);
+
   return (
     <Wrapper
       isAnswer={isAnswer}

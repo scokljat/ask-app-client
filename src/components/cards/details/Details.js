@@ -6,6 +6,7 @@ import Button from "../../button/Button";
 import Modal from "../../modal/Modal";
 import Form from "../../cards/form/Form";
 import FormatUtils from "../../../utils/FormatUtils";
+import Tooltip from "../../tooltip/Tooltip";
 import {
   likeQuestion,
   dislikeQuestion,
@@ -42,21 +43,24 @@ function Details({
   const [searchParams] = useSearchParams();
   const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [tooltipIsVisible, setTooltipIsVisible] = useState(false);
   searchQuestion = searchParams.get("edit");
 
   useEffect(() => {
     if (searchQuestion) setEditModalIsOpen(true);
   }, []);
-  console.log(editModalIsOpen);
+
   return (
     <Wrapper width={width}>
       {editModalIsOpen && (
         <Modal setIsOpen={setEditModalIsOpen} isEdit={true}>
           <Form
             isEdit={true}
-            questionId={question?.id}
+            questionId={questionId}
+            question={question}
             setEditModalIsOpen={setEditModalIsOpen}
             pageSize={pageSize}
+            isAnswer={isAnswer}
           />
         </Modal>
       )}
@@ -76,10 +80,14 @@ function Details({
               height="1.4rem"
               onClick={() => {
                 setEditModalIsOpen(true);
-                if (location.pathname !== "/dashboard") {
-                  navigate(`${location.pathname}?edit=${question?.id}`);
-                } else {
-                  navigate(`/dashboard?list=all-questions&edit=${question.id}`);
+                if (!isAnswer) {
+                  if (location.pathname !== "/dashboard") {
+                    navigate(`${location.pathname}?edit=${question?.id}`);
+                  } else {
+                    navigate(
+                      `/dashboard?list=all-questions&edit=${question.id}`
+                    );
+                  }
                 }
               }}
             />
@@ -106,6 +114,8 @@ function Details({
         )}
       </Footer>
       <Description
+        onMouseEnter={() => setTooltipIsVisible(true)}
+        onMouseOut={() => setTooltipIsVisible(false)}
         onClick={() => {
           setModalIsOpen(true);
           navigate(`${location.pathname}?question=${question.id}`);
@@ -113,7 +123,7 @@ function Details({
       >
         {question?.content}
       </Description>
-
+      <Tooltip tooltipIsVisible={tooltipIsVisible} />
       <Footer>
         <FooterContainer>
           <Text>
@@ -140,6 +150,13 @@ function Details({
                       {
                         userId: user?.id,
                         questionId: question?.id,
+                      },
+                      {
+                        id: question?.id,
+                        dateOfPublished: question?.dateOfPublished,
+                        content: question?.content,
+                        userId: question?.userId,
+                        numberOfLikes: question?.numberOfLikes + 1,
                       },
                       location.pathname,
                       pageSize

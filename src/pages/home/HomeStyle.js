@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "../../globalStyles/GlobalStyles";
 
 export const Wrapper = styled.div`
-  margin: 1.8rem 3.7rem;
+  margin: 1.8rem 2rem;
   display: grid;
   grid-template-columns: 15% 85%;
   gap: 0.63rem;
@@ -58,22 +58,10 @@ export const StyledNavLink = styled(NavLink)`
   padding: 0.63rem 0;
 `;
 
-export const UserContainer = styled.div`
-  /* background: ${({ theme }) => theme.bgComponent};
-  border-radius: 0.31rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px; */
-  display: list-item;
-  color: ${colors.blue};
-`;
-
 export const LinksContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1.25rem;
+  font-size: 1rem;
   background: ${({ theme }) => theme.bgComponent};
   height: 80vh;
   border-radius: 0.31rem;

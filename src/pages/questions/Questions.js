@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Details from "../../components/cards/details/Details";
 import FormCard from "../../components/cards/form/Form";
 import Modal from "../../components/modal/Modal";
 import QuestionDetails from "../../components/modalContent/questionDetails/QuestionDetails";
 import { getAllQuestions } from "../../store/actions/Questions";
-import { Wrapper } from "../../globalStyles/GlobalStyles";
+import { Wrapper, colors } from "../../globalStyles/GlobalStyles";
 import { CardWrapper } from "../home/HomeStyle";
-import Button from "../../components/button/Button";
+import { Text } from "../../components/cards/details/DetailsStyle";
 
 let searchQuestionId;
 function Questions() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { allQuestions } = useSelector((state) => state.reducerQuestions);
   const { isLoggedIn } = useSelector((state) => state.reducerUser);
@@ -33,21 +32,19 @@ function Questions() {
           <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
-      {isLoggedIn ? (
-        <FormCard placeholder="What's on your mind ..." />
-      ) : (
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button title="Back" height="1.8rem" onClick={() => navigate(-1)} />
-        </div>
-      )}
-      <CardWrapper height={isLoggedIn ? "66vh" : "77vh"} width="100%">
-        {allQuestions.map((question) => (
-          <Details
-            question={question}
-            key={question.id}
-            setModalIsOpen={setModalIsOpen}
-          />
-        ))}
+      {isLoggedIn && <FormCard placeholder="What's on your mind ..." />}
+      <CardWrapper height={isLoggedIn ? "68vh" : "87vh"} width="100%">
+        {!allQuestions?.length ? (
+          <Text color={colors.gray}>No questions here</Text>
+        ) : (
+          allQuestions?.map((question) => (
+            <Details
+              question={question}
+              key={question?.id}
+              setModalIsOpen={setModalIsOpen}
+            />
+          ))
+        )}
       </CardWrapper>
     </Wrapper>
   );

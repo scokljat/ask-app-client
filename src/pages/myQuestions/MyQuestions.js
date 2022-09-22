@@ -6,7 +6,8 @@ import Details from "../../components/cards/details/Details";
 import Modal from "../../components/modal/Modal";
 import QuestionDetails from "../../components/modalContent/questionDetails/QuestionDetails";
 import { CardWrapper } from "../home/HomeStyle";
-import { Wrapper } from "../../globalStyles/GlobalStyles";
+import { Wrapper, colors } from "../../globalStyles/GlobalStyles";
+import { Text } from "../../components/cards/details/DetailsStyle";
 
 let searchQuestionId;
 function MyQuestions() {
@@ -30,16 +31,21 @@ function MyQuestions() {
           <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
+
       <CardWrapper height="85vh" width="100%">
-        {userQuestions?.map((question) => {
-          return (
-            <Details
-              question={question}
-              key={question?.id}
-              setModalIsOpen={setModalIsOpen}
-            />
-          );
-        })}
+        {!userQuestions?.length ? (
+          <Text color={colors.gray}>No questions here</Text>
+        ) : (
+          userQuestions?.map((question) => {
+            return (
+              <Details
+                question={question}
+                key={question?.id}
+                setModalIsOpen={setModalIsOpen}
+              />
+            );
+          })
+        )}
       </CardWrapper>
     </Wrapper>
   );

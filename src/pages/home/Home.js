@@ -16,10 +16,9 @@ import {
   LinksWrapper,
   StyledNavLink,
   CardWrapper,
-  UserContainer,
   LinksContainer,
 } from "./HomeStyle";
-import { Text } from "../../components/modalContent/questionDetails/QuestionDetailsStyle";
+import { Text } from "../../components/cards/details/DetailsStyle";
 import { colors } from "../../globalStyles/GlobalStyles";
 
 let searchQuestionId;
@@ -77,17 +76,21 @@ function Home() {
       <CardWrapper height="90vh" width="80%">
         {searchList === "all-questions" && (
           <>
-            {paginatedQuestions?.map((question) => {
-              return (
-                <Details
-                  question={question}
-                  key={question.id}
-                  pageSize={pageSize}
-                  setModalIsOpen={setModalIsOpen}
-                />
-              );
-            })}
-            {loadMoreIsVisible && (
+            {!paginatedQuestions?.length ? (
+              <Text color={colors.gray}>No questions here</Text>
+            ) : (
+              paginatedQuestions?.map((question) => {
+                return (
+                  <Details
+                    question={question}
+                    key={question.id}
+                    pageSize={pageSize}
+                    setModalIsOpen={setModalIsOpen}
+                  />
+                );
+              })
+            )}
+            {loadMoreIsVisible && paginatedQuestions.length !== 0 && (
               <Text
                 onClick={handleMoreQuestions}
                 color={colors.blue}
@@ -103,23 +106,29 @@ function Home() {
         )}
         {searchList === "trending-questions" && (
           <>
-            {hotQuestions?.map((question) => {
-              return (
-                <Details
-                  question={question}
-                  key={question.id}
-                  pageSize={pageSize}
-                  setModalIsOpen={setModalIsOpen}
-                />
-              );
-            })}
+            {!hotQuestions?.length ? (
+              <Text color={colors.gray}>No hot questions here</Text>
+            ) : (
+              hotQuestions?.map((question) => {
+                return (
+                  <Details
+                    question={question}
+                    key={question.id}
+                    pageSize={pageSize}
+                    setModalIsOpen={setModalIsOpen}
+                  />
+                );
+              })
+            )}
           </>
         )}
         {searchList === "trending-users" && (
           <>
-            {popularUsers.map((user) => (
-              <User key={user.id} user={user} />
-            ))}
+            {!popularUsers?.length ? (
+              <Text color={colors.gray}>No users here</Text>
+            ) : (
+              popularUsers?.map((user) => <User key={user?.id} user={user} />)
+            )}
           </>
         )}
       </CardWrapper>

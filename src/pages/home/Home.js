@@ -3,18 +3,24 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Details from "../../components/cards/details/Details";
 import Modal from "../../components/modal/Modal";
+import User from "../../components/cards/user/User";
 import QuestionDetails from "../../components/modalContent/questionDetails/QuestionDetails";
 import { homeList } from "../../utils/Constants";
 import {
   getHotQuestions,
   getPaginatedQuestions,
 } from "../../store/actions/Questions";
+import { getPopularUsers } from "../../store/actions/User";
 import {
   Wrapper,
-  LinkContainer,
+  LinksWrapper,
   StyledNavLink,
   CardWrapper,
+  UserContainer,
+  LinksContainer,
 } from "./HomeStyle";
+import { Text } from "../../components/modalContent/questionDetails/QuestionDetailsStyle";
+import { colors } from "../../globalStyles/GlobalStyles";
 
 let searchQuestionId;
 
@@ -22,11 +28,15 @@ function Home() {
   const defaultPageSize = 20;
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  const { paginatedQuestions } = useSelector((state) => state.reducerQuestions);
-  const { hotQuestions } = useSelector((state) => state.reducerQuestions);
+  const { paginatedQuestions, hotQuestions } = useSelector(
+    (state) => state.reducerQuestions
+  );
+  const { popularUsers } = useSelector((state) => state.reducerUser);
 
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(true);
+
   searchQuestionId = searchParams.get("question");
   const searchList = searchParams.get("list");
 
@@ -37,9 +47,15 @@ function Home() {
     } else if (searchList === "trending-questions") {
       dispatch(getHotQuestions());
     } else {
-      console.log("click");
+      dispatch(getPopularUsers());
     }
-  }, [dispatch, pageSize, searchList]);
+  }, [pageSize, searchList]);
+
+  const handleMoreQuestions = () => {
+    setPageSize(pageSize + defaultPageSize);
+
+    setLoadMoreIsVisible(false);
+  };
 
   return (
     <Wrapper>
@@ -48,41 +64,65 @@ function Home() {
           <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
-      <LinkContainer>
-        {homeList.map((link, index) => (
-          <StyledNavLink to={link.route} key={index}>
-            {link.name}
-          </StyledNavLink>
-        ))}
-      </LinkContainer>
-      {searchList === "all-questions" && (
-        <CardWrapper height="85vh">
-          {paginatedQuestions?.map((question) => {
-            return (
-              <Details
-                question={question}
-                key={question.id}
-                pageSize={pageSize}
-                setModalIsOpen={setModalIsOpen}
-              />
-            );
-          })}
-        </CardWrapper>
-      )}
-      {searchList === "trending-questions" && (
-        <CardWrapper height="85vh">
-          {hotQuestions?.map((question) => {
-            return (
-              <Details
-                question={question}
-                key={question.id}
-                pageSize={pageSize}
-                setModalIsOpen={setModalIsOpen}
-              />
-            );
-          })}
-        </CardWrapper>
-      )}
+      <LinksWrapper>
+        <LinksContainer>
+          {homeList.map((link, index) => (
+            <StyledNavLink to={link.route} key={index}>
+              {link.name}
+            </StyledNavLink>
+          ))}
+        </LinksContainer>
+      </LinksWrapper>
+
+      <CardWrapper height="90vh" width="80%">
+        {searchList === "all-questions" && (
+          <>
+            {paginatedQuestions?.map((question) => {
+              return (
+                <Details
+                  question={question}
+                  key={question.id}
+                  pageSize={pageSize}
+                  setModalIsOpen={setModalIsOpen}
+                />
+              );
+            })}
+            {loadMoreIsVisible && (
+              <Text
+                onClick={handleMoreQuestions}
+                color={colors.blue}
+                style={{
+                  fontSize: "17px",
+                  cursor: "pointer",
+                }}
+              >
+                Load more...
+              </Text>
+            )}
+          </>
+        )}
+        {searchList === "trending-questions" && (
+          <>
+            {hotQuestions?.map((question) => {
+              return (
+                <Details
+                  question={question}
+                  key={question.id}
+                  pageSize={pageSize}
+                  setModalIsOpen={setModalIsOpen}
+                />
+              );
+            })}
+          </>
+        )}
+        {searchList === "trending-users" && (
+          <>
+            {popularUsers.map((user) => (
+              <User key={user.id} user={user} />
+            ))}
+          </>
+        )}
+      </CardWrapper>
     </Wrapper>
   );
 }

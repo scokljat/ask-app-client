@@ -1,66 +1,40 @@
 import axios from "../http";
 
 const AnswersService = {
-  getAnswers: async (id) => {
+  getAnswers: (id) => {
     const url = `/questions/${id}/answers?_expand=user&_embed=answerLikes&_embed=answerDislikes`;
-    try {
-      const { data } = await axios.get(url);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.get(url);
   },
 
-  createAnswer: async (answer) => {
+  createAnswer: (answer) => {
     const url = `/questions/${answer.questionId}/answers?_expand=user`;
-    try {
-      const { data } = await axios.post(url, answer);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.post(url, answer);
   },
 
-  likeAnswer: async (likedAnswer) => {
+  likeAnswer: (likedAnswer) => {
     const url = "/answerLikes";
-    try {
-      const { data } = await axios.post(url, likedAnswer);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.post(url, likedAnswer);
   },
 
-  dislikeAnswer: async (dislikedAnswer) => {
+  dislikeAnswer: (dislikedAnswer) => {
     const url = "/answerDislikes";
-    try {
-      const { data } = await axios.post(url, dislikedAnswer);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.post(url, dislikedAnswer);
   },
 
-  deleteAnswer: async (id) => {
+  deleteAnswer: (id) => {
     const url = `/answers/${id}`;
-    try {
-      await axios.delete(url);
-    } catch (error) {
-      return { error };
-    }
+
+    return axios.delete(url);
   },
 
-  updateAnswer: async (updatedAnswer) => {
+  updateAnswer: (updatedAnswer) => {
     const url = `/answers/${updatedAnswer.id}`;
-    try {
-      await axios.put(url, updatedAnswer);
-    } catch (error) {
-      return { error };
-    }
+
+    return axios.put(url, updatedAnswer);
   },
 };
 

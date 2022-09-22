@@ -1,22 +1,26 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
 import { getUserById } from "./store/actions/User";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./globalStyles/GlobalStyles";
 import { theme } from "./globalStyles/Themes";
 import { routes } from "./utils/Constants";
 import Navbar from "./components/navbar/Navbar";
-import jwtDecode from "jwt-decode";
 
 function App() {
   const dispatch = useDispatch();
-  const user =
+  const navigate = useNavigate();
+  const decodedUser =
     localStorage.getItem("token") && jwtDecode(localStorage.getItem("token"));
 
+  const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
+
   useEffect(() => {
-    if (user) dispatch(getUserById(user.sub));
-  }, [dispatch, user]);
+    if (!user.length && decodedUser) dispatch(getUserById(decodedUser?.sub));
+    if (!isLoggedIn) navigate("/");
+  }, [dispatch, isLoggedIn]);
 
   return (
     <ThemeProvider theme={theme}>

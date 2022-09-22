@@ -19,7 +19,7 @@ export const Form = styled.form`
   margin-top: 1.25rem;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(100, 100, 111, 0.2) 0rem 0.4rem 1.8rem 0rem;
+  //box-shadow: rgba(100, 100, 111, 0.2) 0rem 0.4rem 1.8rem 0rem;
 
   @media (max-width: 768px) {
     width: 50%;

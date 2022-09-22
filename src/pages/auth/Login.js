@@ -72,7 +72,7 @@ function Login() {
         </InputWrapper>
         {errors.password && <Text>{errors.password.message}</Text>}
 
-        <Button title="Login" type="submit" height="40px" />
+        <Button title="Login" type="submit" height="40px" width="100%" />
 
         <InnerContainer>
           <Text style={{ color: colors.gray, fontSize: "16px" }}>

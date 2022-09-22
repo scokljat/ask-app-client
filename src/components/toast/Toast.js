@@ -5,7 +5,7 @@ export const showToastMessage = (messageText, type) => {
   if (type === "error")
     toast.error(messageText, {
       style: {
-        background: colors.red,
+        background: colors.lightRed,
         color: colors.gray,
       },
     });

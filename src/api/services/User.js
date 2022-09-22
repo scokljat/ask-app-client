@@ -1,59 +1,34 @@
 import axios from "../http";
 
 const UserService = {
-  register: async (user) => {
+  register: (user) => {
     const url = "/register";
-    try {
-      const { data } = await axios.post(url, user);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.post(url, user);
   },
 
-  login: async (user) => {
+  login: (user) => {
     const url = "/login";
-    try {
-      const { data } = await axios.post(url, user);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.post(url, user);
   },
 
-  getUserById: async (id) => {
+  getUserById: (id) => {
     const url = `/users/${id}`;
-    try {
-      const { data } = await axios.get(url);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.get(url);
   },
 
-  getPopularUsers: async () => {
+  getPopularUsers: () => {
     const url = "/users?_sort=numberOfAnswers";
-    try {
-      const { data } = await axios.get(url);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.get(url);
   },
 
-  updateUser: async (updatedUser) => {
+  updateUser: (updatedUser) => {
     const url = `/users/${updatedUser.id}`;
-    try {
-      const { data } = await axios.patch(url, updatedUser);
 
-      return { data };
-    } catch (error) {
-      return { error };
-    }
+    return axios.patch(url, updatedUser);
   },
 };
 

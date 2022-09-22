@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../button/Button";
 import { logout } from "../../store/actions/User";
 import { navbarList } from "../../utils/Constants";
@@ -13,6 +14,8 @@ import {
 
 function Navbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { isLoggedIn } = useSelector((state) => state.reducerUser);
 
   return (
@@ -36,7 +39,16 @@ function Navbar() {
             />
           </>
         ) : (
-          <StyledNavLink to="/questions">Questions</StyledNavLink>
+          <>
+            <StyledNavLink to="/questions">Questions</StyledNavLink>
+            {location.pathname === "/questions" && (
+              <Button
+                title="Login"
+                height="1.8rem"
+                onClick={() => navigate(-1)}
+              />
+            )}
+          </>
         )}
       </Container>
     </Wrapper>

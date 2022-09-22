@@ -71,7 +71,8 @@ export const createQuestion = (question) => async (dispatch, getState) => {
 };
 
 export const likeQuestion =
-  (likedQuestion, question, page, pageSize) => async (dispatch) => {
+  (likedQuestion, question, page, search, pageSize) => async (dispatch) => {
+    console.log(search);
     try {
       await QuestionsService.likeQuestion(likedQuestion);
       await QuestionsService.increaseQuestionLikes(question);
@@ -79,7 +80,11 @@ export const likeQuestion =
       if (page === "/questions") {
         dispatch(getAllQuestions());
       } else if (page === "/dashboard") {
-        dispatch(getPaginatedQuestions(pageSize));
+        if (search === "?list=trending-questions") {
+          dispatch(getHotQuestions());
+        } else {
+          dispatch(getPaginatedQuestions(pageSize));
+        }
       } else {
         dispatch(getUserQuestions(likedQuestion.userId));
       }
@@ -89,14 +94,18 @@ export const likeQuestion =
   };
 
 export const dislikeQuestion =
-  (dislikedQuestion, page, pageSize) => async (dispatch) => {
+  (dislikedQuestion, page, search, pageSize) => async (dispatch) => {
     try {
       await QuestionsService.dislikeQuestion(dislikedQuestion);
 
       if (page === "/questions") {
         dispatch(getAllQuestions());
       } else if (page === "/dashboard") {
-        dispatch(getPaginatedQuestions(pageSize));
+        if (search === "?list=trending-questions") {
+          dispatch(getHotQuestions());
+        } else {
+          dispatch(getPaginatedQuestions(pageSize));
+        }
       } else {
         dispatch(getUserQuestions(dislikedQuestion.userId));
       }

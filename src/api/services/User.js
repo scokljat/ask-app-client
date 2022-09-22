@@ -46,10 +46,9 @@ const UserService = {
   },
 
   updateUser: async (updatedUser) => {
-    console.log(updatedUser, "servis");
     const url = `/users/${updatedUser.id}`;
     try {
-      const { data } = await axios.put(url, updatedUser);
+      const { data } = await axios.patch(url, updatedUser);
 
       return { data };
     } catch (error) {

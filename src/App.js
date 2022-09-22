@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 import jwtDecode from "jwt-decode";
 import { getUserById } from "./store/actions/User";
 import { ThemeProvider } from "styled-components";
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Toaster position="top-center" reverseOrder={false} />
       <GlobalStyles />
       <Navbar />
       <Routes>

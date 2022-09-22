@@ -1,4 +1,5 @@
 import QuestionsService from "../../api/services/Questions";
+import { showToastMessage } from "../../components/toast/Toast";
 import {
   FETCH_PAGINATED_QUESTIONS,
   FETCH_ALL_QUESTIONS,
@@ -14,7 +15,7 @@ export const getPaginatedQuestions = (pageSize) => async (dispatch) => {
 
     dispatch({ type: FETCH_PAGINATED_QUESTIONS, payload: data });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
@@ -24,7 +25,7 @@ export const getAllQuestions = () => async (dispatch) => {
 
     dispatch({ type: FETCH_ALL_QUESTIONS, payload: data });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
@@ -34,7 +35,7 @@ export const getUserQuestions = (id) => async (dispatch) => {
 
     dispatch({ type: FETCH_USER_QUESTIONS, payload: data });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
@@ -44,7 +45,7 @@ export const getQuestionById = (id) => async (dispatch) => {
 
     dispatch({ type: FETCH_QUESTION_BY_ID, payload: data });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
@@ -54,7 +55,7 @@ export const getHotQuestions = () => async (dispatch) => {
 
     dispatch({ type: FETCH_HOT_QUESTIONS, payload: data });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
@@ -64,15 +65,15 @@ export const createQuestion = (question) => async (dispatch, getState) => {
   try {
     const { data } = await QuestionsService.createQuestion(question);
 
+    showToastMessage("Question has been successfully created", "success");
     dispatch({ type: ADD_QUESTION, payload: { data, user } });
   } catch (error) {
-    console.log(error);
+    showToastMessage(error.message, "error");
   }
 };
 
 export const likeQuestion =
   (likedQuestion, question, page, search, pageSize) => async (dispatch) => {
-    console.log(search);
     try {
       await QuestionsService.likeQuestion(likedQuestion);
       await QuestionsService.increaseQuestionLikes(question);
@@ -88,8 +89,10 @@ export const likeQuestion =
       } else {
         dispatch(getUserQuestions(likedQuestion.userId));
       }
+
+      showToastMessage("You have successfully liked the question", "success");
     } catch (error) {
-      console.log(error);
+      showToastMessage(error.message, "error");
     }
   };
 
@@ -109,8 +112,13 @@ export const dislikeQuestion =
       } else {
         dispatch(getUserQuestions(dislikedQuestion.userId));
       }
+
+      showToastMessage(
+        "You have successfully disliked the question",
+        "success"
+      );
     } catch (error) {
-      console.log(error);
+      showToastMessage(error.message, "error");
     }
   };
 
@@ -125,8 +133,10 @@ export const deleteQuestion =
       } else {
         dispatch(getUserQuestions(userId));
       }
+
+      showToastMessage("Question has been successfully deleted", "success");
     } catch (error) {
-      console.log(error);
+      showToastMessage(error.message, "error");
     }
   };
 
@@ -141,7 +151,9 @@ export const updateQuestion =
       } else {
         dispatch(getUserQuestions(updatedQuestion.userId));
       }
+
+      showToastMessage("Question has been successfully edited", "success");
     } catch (error) {
-      console.log(error);
+      showToastMessage(error.message, "error");
     }
   };

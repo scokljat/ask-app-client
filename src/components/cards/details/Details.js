@@ -51,7 +51,7 @@ function Details({
   useEffect(() => {
     if (searchQuestion) setEditModalIsOpen(true);
   }, []);
-
+  console.log(question);
   return (
     <Wrapper width={width}>
       {editModalIsOpen && (
@@ -148,31 +148,42 @@ function Details({
               icon={<Like style={{ marginRight: "0.3rem" }} />}
               onClick={() => {
                 if (isAnswer) {
-                  dispatch(
-                    likeAnswer({
-                      userId: user?.id,
-                      answerId: question?.id,
-                      questionId: questionId,
-                    })
+                  let arrayOfUserId = question.answerLikes.map(
+                    ({ userId }) => userId
                   );
-                } else {
-                  dispatch(
-                    likeQuestion(
-                      {
+                  if (arrayOfUserId.includes(user.id) !== true) {
+                    dispatch(
+                      likeAnswer({
                         userId: user?.id,
-                        questionId: question?.id,
-                      },
-                      {
-                        id: question?.id,
-                        dateOfPublished: question?.dateOfPublished,
-                        content: question?.content,
-                        userId: question?.userId,
-                        numberOfLikes: question?.numberOfLikes + 1,
-                      },
-                      location.pathname,
-                      pageSize
-                    )
+                        answerId: question?.id,
+                        questionId: questionId,
+                      })
+                    );
+                  }
+                } else {
+                  let arrayOfUserId = question.likes.map(
+                    ({ userId }) => userId
                   );
+                  if (arrayOfUserId.includes(user.id) !== true) {
+                    dispatch(
+                      likeQuestion(
+                        {
+                          userId: user?.id,
+                          questionId: question?.id,
+                        },
+                        {
+                          id: question?.id,
+                          dateOfPublished: question?.dateOfPublished,
+                          content: question?.content,
+                          userId: question?.userId,
+                          numberOfLikes: question?.numberOfLikes + 1,
+                        },
+                        location.pathname,
+                        location.search,
+                        pageSize
+                      )
+                    );
+                  }
                 }
               }}
             />
@@ -193,24 +204,35 @@ function Details({
               icon={<Dislike style={{ marginRight: "0.3rem" }} />}
               onClick={() => {
                 if (isAnswer) {
-                  dispatch(
-                    dislikeAnswer({
-                      userId: user?.id,
-                      answerId: question?.id,
-                      questionId: questionId,
-                    })
+                  let arrayOfUserId = question.answerDislikes.map(
+                    ({ userId }) => userId
                   );
-                } else {
-                  dispatch(
-                    dislikeQuestion(
-                      {
+                  if (arrayOfUserId.includes(user.id) !== true) {
+                    dispatch(
+                      dislikeAnswer({
                         userId: user?.id,
-                        questionId: question?.id,
-                      },
-                      location.pathname,
-                      pageSize
-                    )
+                        answerId: question?.id,
+                        questionId: questionId,
+                      })
+                    );
+                  }
+                } else {
+                  let arrayOfUserId = question.dislikes.map(
+                    ({ userId }) => userId
                   );
+                  if (arrayOfUserId.includes(user.id) !== true) {
+                    dispatch(
+                      dislikeQuestion(
+                        {
+                          userId: user?.id,
+                          questionId: question?.id,
+                        },
+                        location.pathname,
+                        location.search,
+                        pageSize
+                      )
+                    );
+                  }
                 }
               }}
             />

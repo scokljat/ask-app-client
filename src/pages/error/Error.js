@@ -1,6 +1,6 @@
-import { ReactComponent as Frown } from "../assets/images/frown.svg";
-import { Wrapper } from "../globalStyles/GlobalStyles";
-import { Description } from "../components/cards/details/DetailsStyle";
+import { ReactComponent as Frown } from "../../assets/images/frown.svg";
+import { Wrapper } from "../../globalStyles/GlobalStyles";
+import { Description } from "../../components/cards/details/DetailsStyle";
 
 function Error() {
   return (

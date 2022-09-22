@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   color: ${({ theme }) => theme.textPrimary};
   padding: 0.63rem;
   width: ${({ isAnswer, isEdit }) =>
-    isAnswer ? "95%" : isEdit ? "100" : "60%"};
+    isAnswer ? "95%" : isEdit ? "100" : "65%"};
   height: ${({ isEdit }) => isEdit && "100%"};
   background: ${({ theme }) => theme.bgComponent};
   border-radius: 0.31rem;
@@ -23,10 +23,10 @@ export const StyledTextArea = styled.textarea`
   width: 100%;
   height: ${({ isEdit }) => (isEdit ? "3.5rem" : "2.5rem")};
   border-radius: 0.31rem;
-  border: 0;
+  border: 0.06rem solid ${({ theme }) => theme.background};
   align-items: center;
   outline: none;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.bgComponent};
 `;
 
 export const ButtonWrapper = styled.div`
@@ -37,4 +37,9 @@ export const ButtonWrapper = styled.div`
   margin-top: 1.25rem;
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+`;

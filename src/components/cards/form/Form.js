@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
 import { useForm } from "react-hook-form";
-import { ReactComponent as Play } from "../../../assets/images/play.svg";
+import { getUserById } from "../../../store/actions/User";
 import Button from "../../button/Button";
 import {
   createQuestion,
@@ -26,6 +27,7 @@ function FormCard({
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const decodedUser = jwtDecode(localStorage.getItem("token"));
   const { user } = useSelector((state) => state.reducerUser);
   searchQuestion = searchParams.get("edit");
 
@@ -121,9 +123,13 @@ function FormCard({
           placeholder={placeholder}
         />
         {errors.question && <Text>{errors.question.message}</Text>}
-        <ButtonWrapper>
-          <Button title={<Play />} type="submit" width="10%" height="2rem" />
-        </ButtonWrapper>
+
+        <Button
+          title={isAnswer ? "Add answer" : "Add question"}
+          type="submit"
+          width="100%"
+          height="2rem"
+        />
       </Form>
     </Wrapper>
   );

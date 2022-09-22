@@ -2,6 +2,7 @@ import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
 import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
+import { ReactComponent as VerticalPoints } from "../../../assets/images/more-vertical.svg";
 import Button from "../../button/Button";
 import Modal from "../../modal/Modal";
 import Form from "../../cards/form/Form";
@@ -44,6 +45,7 @@ function Details({
   const { isLoggedIn, user } = useSelector((state) => state.reducerUser);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false);
+  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   searchQuestion = searchParams.get("edit");
 
   useEffect(() => {
@@ -74,48 +76,57 @@ function Details({
           </Text>
         </div>
         {question.user.id === user.id && (
-          <ButtonContainer>
-            <Button
-              title="Edit"
-              height="1.4rem"
-              onClick={() => {
-                setEditModalIsOpen(true);
-                if (!isAnswer) {
-                  if (location.pathname !== "/dashboard") {
-                    navigate(`${location.pathname}?edit=${question?.id}`);
-                  } else {
-                    navigate(
-                      `/dashboard?list=all-questions&edit=${question.id}`
-                    );
-                  }
-                }
-              }}
-            />
-            <Button
-              title="Delete"
-              height="1.4rem"
-              color={colors.red}
-              onClick={() => {
-                if (isAnswer) {
-                  dispatch(deleteAnswer(question?.id, questionId));
-                } else {
-                  dispatch(
-                    deleteQuestion(
-                      question?.id,
-                      location.pathname,
-                      pageSize,
-                      user?.id
-                    )
-                  );
-                }
-              }}
-            />
-          </ButtonContainer>
+          <VerticalPoints
+            style={{ cursor: "pointer" }}
+            onClick={() => setShowAdditionalButtons(!showAdditionalButtons)}
+          />
         )}
       </Footer>
+      {showAdditionalButtons && (
+        <ButtonContainer>
+          <Button
+            title="Edit"
+            height="1.4rem"
+            onClick={() => {
+              setEditModalIsOpen(true);
+              if (!isAnswer) {
+                if (location.pathname !== "/dashboard") {
+                  navigate(`${location.pathname}?edit=${question?.id}`);
+                } else {
+                  navigate(`/dashboard?list=all-questions&edit=${question.id}`);
+                }
+              }
+            }}
+          />
+          <Button
+            title="Delete"
+            height="1.4rem"
+            color={colors.red}
+            onClick={() => {
+              if (isAnswer) {
+                dispatch(deleteAnswer(question?.id, questionId));
+              } else {
+                dispatch(
+                  deleteQuestion(
+                    question?.id,
+                    location.pathname,
+                    pageSize,
+                    user?.id
+                  )
+                );
+              }
+            }}
+          />
+        </ButtonContainer>
+      )}
       <Description
-        onMouseEnter={() => setTooltipIsVisible(true)}
-        onMouseOut={() => setTooltipIsVisible(false)}
+        isAnswer={isAnswer}
+        onMouseEnter={() => {
+          if (!isAnswer) setTooltipIsVisible(true);
+        }}
+        onMouseOut={() => {
+          if (!isAnswer) setTooltipIsVisible(false);
+        }}
         onClick={() => {
           setModalIsOpen(true);
           navigate(`${location.pathname}?question=${question.id}`);

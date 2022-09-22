@@ -81,11 +81,10 @@ const QuestionsService = {
   },
 
   dislikeQuestion: async (dislikedQuestion) => {
-    console.log(dislikedQuestion);
     const url = "/dislikes";
     try {
       const { data } = await axios.post(url, dislikedQuestion);
-      console.log(data);
+
       return { data };
     } catch (error) {
       return { error };
@@ -102,10 +101,11 @@ const QuestionsService = {
   },
 
   updateQuestion: async (updatedQuestion) => {
-    console.log(updatedQuestion, "servis");
     const url = `/questions/${updatedQuestion.id}`;
     try {
-      await axios.put(url, updatedQuestion);
+      const { data } = await axios.put(url, updatedQuestion);
+
+      return { data };
     } catch (error) {
       return { error };
     }

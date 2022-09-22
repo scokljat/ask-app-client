@@ -3,7 +3,7 @@ import Register from "../pages/auth/Register";
 import Home from "../pages/home/Home";
 import Questions from "../pages/questions/Questions";
 import MyQuestions from "../pages/myQuestions/MyQuestions";
-import Profile from "../pages/Profile";
+import Profile from "../pages/profile/Profile";
 import Error from "../pages/Error";
 
 export const routes = [

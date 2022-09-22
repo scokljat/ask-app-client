@@ -19,7 +19,6 @@ export const reducerUser = (state = initialState, { type, payload }) => {
       localStorage.setItem("token", payload.accessToken);
       return { ...state, user: payload.user, isLoggedIn: true };
     case LOGIN:
-      console.log(payload);
       localStorage.setItem("token", payload.accessToken);
       return { ...state, user: payload.user, isLoggedIn: true };
     case LOGOUT:
@@ -28,7 +27,7 @@ export const reducerUser = (state = initialState, { type, payload }) => {
     case FETCH_USER:
       return { ...state, user: payload };
     case FETCH_POPULAR_USERS:
-      return { ...state, popularUsers: payload.reverse() };
+      return { ...state, popularUsers: payload?.reverse() };
     case UPDATE_USER:
       return {
         ...state,

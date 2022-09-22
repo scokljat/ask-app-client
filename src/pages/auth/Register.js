@@ -31,12 +31,18 @@ function Register() {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = (values) => {
-    dispatch(registerUser(values));
-    reset();
+    dispatch(
+      registerUser({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+        numberOfAnswers: 0,
+      })
+    );
   };
 
   return (
@@ -80,6 +86,10 @@ function Register() {
             placeholder="Password"
             {...register("password", {
               required: "Password is required!",
+              minLength: {
+                value: 5,
+                message: "Password can have a minimum of 5 characters!",
+              },
             })}
             type={passwordShown ? "text" : "password"}
           />

@@ -31,10 +31,7 @@ export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   align-self: center;
   margin-left: 0.63rem;
-
-  :hover {
-    color: ${colors.blue};
-  }
+  color: ${colors.blue};
 `;
 
 export const Text = styled.p`
@@ -53,7 +50,7 @@ export const InputWrapper = styled.div`
   align-items: center;
   padding-left: 0.63rem;
   width: 100%;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme, background }) => background || theme.background};
   border: 0;
   border-radius: 0.31rem;
 `;

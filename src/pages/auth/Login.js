@@ -31,12 +31,10 @@ function Login() {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = (values) => {
     dispatch(login(values));
-    reset();
   };
 
   return (
@@ -72,7 +70,7 @@ function Login() {
         </InputWrapper>
         {errors.password && <Text>{errors.password.message}</Text>}
 
-        <Button title="Login" type="submit" height="40px" width="100%" />
+        <Button title="Login" type="submit" height="2.5rem" width="100%" />
 
         <InnerContainer>
           <Text style={{ color: colors.gray, fontSize: "16px" }}>

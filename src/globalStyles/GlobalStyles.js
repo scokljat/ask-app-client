@@ -19,6 +19,7 @@ export const colors = {
   gray: "#82807f",
   placeholderGray: "#67696d",
   tooltipBlue: "#daf4ff",
+  white: "#fff",
 };
 
 export const Wrapper = styled.div`

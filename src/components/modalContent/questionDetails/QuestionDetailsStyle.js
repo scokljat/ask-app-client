@@ -17,12 +17,6 @@ export const Description = styled.p`
   font-size: 1.25rem;
 `;
 
-export const Text = styled.p`
-  font-size: 0.8rem;
-  margin: 0;
-  color: ${({ color }) => color};
-`;
-
 export const QuestionStatistic = styled.div`
   display: flex;
   gap: 0.63rem;

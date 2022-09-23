@@ -65,6 +65,7 @@ export const StyledInput = styled.input`
   outline: none;
   background: ${({ theme }) => theme.background};
   border: 0;
+  width: 100%;
 
   ::placeholder {
     color: ${colors.placeholderGray};

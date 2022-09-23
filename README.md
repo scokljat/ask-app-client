@@ -18,7 +18,7 @@ Clone the repository using **Git**:
 ```
 git clone https://github.com/scokljat/ask-app-client.git
 ```
-Add .env file:
+Add .env.development.local file:
 
 ```
  REACT_APP_API_URL = REACT_APP_API_URL
@@ -29,16 +29,12 @@ For installing the dependencies run:
 
 ```bash
 npm install
-# Or
-yarn install
 ```
 
 At the end type:
 
 ```bash
 npm start
-# Or
-yarn start
 ```
 
 for running the development server at this address: http://localhost:3000

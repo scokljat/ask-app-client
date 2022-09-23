@@ -22,6 +22,10 @@ export const Content = styled.div`
   width: 40%;
   height: ${({ isEdit }) => isEdit && "25%"};
 
+  @media (max-width: 1000px) {
+    width: 60%;
+  }
+
   @media (max-width: 630px) {
     width: 60%;
   }

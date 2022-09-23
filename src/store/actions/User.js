@@ -56,13 +56,15 @@ export const getPopularUsers = () => async (dispatch) => {
   }
 };
 
-export const updateUser = (updatedUser) => async (dispatch) => {
-  try {
-    const { data } = await UserService.updateUser(updatedUser);
+export const updateUser =
+  (updatedUser, isUpdatedNumberOfAnswers) => async (dispatch) => {
+    try {
+      const { data } = await UserService.updateUser(updatedUser);
 
-    showToastMessage("User has been successfully edited", "success");
-    dispatch({ type: UPDATE_USER, payload: data });
-  } catch (error) {
-    showToastMessage(error.message, "error");
-  }
-};
+      if (!isUpdatedNumberOfAnswers)
+        showToastMessage("User has been successfully edited", "success");
+      dispatch({ type: UPDATE_USER, payload: data });
+    } catch (error) {
+      showToastMessage(error.message, "error");
+    }
+  };

@@ -55,7 +55,10 @@ function FormCard({
         })
       );
       dispatch(
-        updateUser({ id: user?.id, numberOfAnswers: user?.numberOfAnswers + 1 })
+        updateUser(
+          { id: user?.id, numberOfAnswers: user?.numberOfAnswers + 1 },
+          true
+        )
       );
     } else if (isEdit && !isAnswer) {
       dispatch(

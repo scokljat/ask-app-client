@@ -53,7 +53,7 @@ function Details({
   useEffect(() => {
     if (searchQuestion) setEditModalIsOpen(true);
   }, []);
-  //console.log(question);
+
   return (
     <Wrapper width={width}>
       {editModalIsOpen && (
@@ -108,10 +108,13 @@ function Details({
               if (isAnswer) {
                 dispatch(deleteAnswer(question?.id, questionId));
                 dispatch(
-                  updateUser({
-                    id: user?.id,
-                    numberOfAnswers: user?.numberOfAnswers - 1,
-                  })
+                  updateUser(
+                    {
+                      id: user?.id,
+                      numberOfAnswers: user?.numberOfAnswers - 1,
+                    },
+                    true
+                  )
                 );
               } else {
                 dispatch(

@@ -41,19 +41,25 @@ function Profile() {
   const onSubmit = (values) => {
     if (editUserIsClicked) {
       dispatch(
-        updateUser({
-          firstName: values.firstName,
-          lastName: values.lastName,
-          id: user?.id,
-        })
+        updateUser(
+          {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            id: user?.id,
+          },
+          false
+        )
       );
       setEditUserIsClicked(false);
     } else {
       dispatch(
-        updateUser({
-          password: values.password,
-          id: user?.id,
-        })
+        updateUser(
+          {
+            password: values.password,
+            id: user?.id,
+          },
+          false
+        )
       );
       setEditPasswordIsClicked(false);
     }

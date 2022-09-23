@@ -2,7 +2,7 @@ import axios from "../http";
 
 const QuestionsService = {
   getPaginatedQuestions: (pageSize) => {
-    const url = `/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished&_limit=${pageSize}`;
+    const url = `/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished&_order=des&_limit=${pageSize}`;
     return axios.get(url);
   },
 

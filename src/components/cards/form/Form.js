@@ -123,8 +123,8 @@ function FormCard({
           {...register("question", {
             required: "Content is required!",
             maxLength: {
-              value: 50,
-              message: "Content of question must not exceed 50 characters!",
+              value: 100,
+              message: "Content of question must not exceed 100 characters!",
             },
           })}
           placeholder={placeholder}

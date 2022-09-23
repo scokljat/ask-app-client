@@ -34,7 +34,7 @@ function Home() {
 
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(true);
+  const [loadMoreIsVisible] = useState(true);
 
   searchQuestionId = searchParams.get("question");
   const searchList = searchParams.get("list");
@@ -48,7 +48,7 @@ function Home() {
     } else {
       dispatch(getPopularUsers());
     }
-  }, [pageSize, searchList]);
+  }, [dispatch, pageSize, searchList]);
 
   const handleMoreQuestions = () => {
     setPageSize(pageSize + defaultPageSize);

@@ -74,7 +74,7 @@ function Login() {
         <Button title="Login" type="submit" height="2.5rem" width="100%" />
 
         <InnerContainer>
-          <Text style={{ color: colors.gray, fontSize: "16px" }}>
+          <Text style={{ color: colors.gray, fontSize: "1rem" }}>
             Don't have an account?
           </Text>
           <StyledNavLink to="/register">Sign up</StyledNavLink>

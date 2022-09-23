@@ -96,9 +96,9 @@ function Register() {
           />
         </InputWrapper>
         {errors.password && <Text>{errors.password.message}</Text>}
-        <Button title="Sign up" type="submit" height="40px" />
+        <Button title="Sign up" type="submit" height="40px" width="100%" />
         <InnerContainer>
-          <Text style={{ color: colors.gray, fontSize: "16px" }}>
+          <Text style={{ color: colors.gray, fontSize: "1rem" }}>
             Have an account?
           </Text>
           <StyledNavLink to="/">Sign in</StyledNavLink>

@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <Wrapper>
       <Container>
-        <Title>Ask me</Title>
+        <Title to="/">Ask me</Title>
         {isLoggedIn ? (
           <>
             <LinksContainer>

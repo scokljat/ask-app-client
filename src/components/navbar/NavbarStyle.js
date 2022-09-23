@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
 
   @media (max-width: 430px) {
     padding: 0.18rem;
+    padding-top: 1.5rem;
     height: 3rem;
   }
 `;
@@ -57,7 +58,8 @@ export const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export const Title = styled.h1`
+export const Title = styled(NavLink)`
+  text-decoration: none;
   color: ${colors.blue};
   font-size: 1.5rem;
 

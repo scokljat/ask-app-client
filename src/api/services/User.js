@@ -26,6 +26,7 @@ const UserService = {
   },
 
   updateUser: (updatedUser) => {
+    console.log(updatedUser);
     const url = `/users/${updatedUser.id}`;
 
     return axios.patch(url, updatedUser);

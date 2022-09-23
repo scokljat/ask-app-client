@@ -49,9 +49,14 @@ export const ButtonContainer = styled.div`
   gap: 0.63rem;
   background: ${({ theme }) => theme.bgComponent};
   position: absolute;
-  right: -130px;
-  top: -1px;
-  padding: 10px;
+  right: ${({ isAnswer }) => (isAnswer ? "0rem" : "-8.12rem")};
+  top: ${({ isAnswer }) => (isAnswer ? "1.8rem" : "-0.06rem")};
+  padding: 0.63rem;
   border-radius: 0.31rem;
-  border: 1px solid ${({ theme }) => theme.background};
+  border: 0.06rem solid ${({ theme }) => theme.background};
+
+  @media (max-width: 1300px) {
+    right: 0rem;
+    top: 1.8rem;
+  }
 `;

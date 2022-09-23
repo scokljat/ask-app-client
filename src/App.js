@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
-import jwtDecode from "jwt-decode";
-import { getUserById } from "./store/actions/User";
 import { ThemeProvider } from "styled-components";
-import { GlobalStyles } from "./globalStyles/GlobalStyles";
-import { theme } from "./globalStyles/Themes";
+import jwtDecode from "jwt-decode";
+
+import { getUserById } from "./store/actions/User";
 import { routes } from "./utils/Constants";
 import Navbar from "./components/navbar/Navbar";
+import { GlobalStyles } from "./globalStyles/GlobalStyles";
+import { theme } from "./globalStyles/Themes";
 
 function App() {
   const dispatch = useDispatch();

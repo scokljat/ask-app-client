@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import { ReactComponent as Like } from "../../../assets/images/thumbs-up.svg";
 import { ReactComponent as Dislike } from "../../../assets/images/thumbs-down.svg";
 import { ReactComponent as VerticalPoints } from "../../../assets/images/more-vertical.svg";
@@ -18,6 +20,7 @@ import {
   dislikeAnswer,
   deleteAnswer,
 } from "../../../store/actions/Answers";
+import { updateUser } from "../../../store/actions/User";
 import { colors } from "../../../globalStyles/GlobalStyles";
 import {
   Wrapper,
@@ -27,7 +30,6 @@ import {
   FooterContainer,
   Footer,
 } from "./DetailsStyle";
-import { useEffect, useState } from "react";
 
 let searchQuestion;
 function Details({
@@ -51,7 +53,7 @@ function Details({
   useEffect(() => {
     if (searchQuestion) setEditModalIsOpen(true);
   }, []);
-  console.log(question);
+  //console.log(question);
   return (
     <Wrapper width={width}>
       {editModalIsOpen && (
@@ -83,7 +85,7 @@ function Details({
         )}
       </Footer>
       {showAdditionalButtons && (
-        <ButtonContainer>
+        <ButtonContainer isAnswer={isAnswer}>
           <Button
             title="Edit"
             height="1.4rem"
@@ -105,11 +107,18 @@ function Details({
             onClick={() => {
               if (isAnswer) {
                 dispatch(deleteAnswer(question?.id, questionId));
+                dispatch(
+                  updateUser({
+                    id: user?.id,
+                    numberOfAnswers: user?.numberOfAnswers - 1,
+                  })
+                );
               } else {
                 dispatch(
                   deleteQuestion(
                     question?.id,
                     location.pathname,
+                    location.search,
                     pageSize,
                     user?.id
                   )

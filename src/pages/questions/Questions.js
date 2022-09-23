@@ -34,7 +34,7 @@ function Questions() {
         </Modal>
       )}
       {isLoggedIn && <FormCard placeholder="What's on your mind ..." />}
-      <CardWrapper height={isLoggedIn ? "68vh" : "87vh"} width="100%">
+      <CardWrapper height={isLoggedIn ? "70vh" : "87vh"} width="100%">
         {!allQuestions?.length ? (
           <Text color={colors.gray}>No questions here</Text>
         ) : (

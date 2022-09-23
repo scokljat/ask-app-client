@@ -18,7 +18,7 @@ Clone the repository using **Git**:
 ```
 git clone https://github.com/scokljat/ask-app-client.git
 ```
-Add .env file
+Add .env file:
 
 ```
  REACT_APP_API_URL = REACT_APP_API_URL

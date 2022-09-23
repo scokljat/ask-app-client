@@ -52,8 +52,6 @@ function Home() {
 
   const handleMoreQuestions = () => {
     setPageSize(pageSize + defaultPageSize);
-
-    setLoadMoreIsVisible(false);
   };
 
   return (
@@ -95,7 +93,7 @@ function Home() {
                 onClick={handleMoreQuestions}
                 color={colors.blue}
                 style={{
-                  fontSize: "17px",
+                  fontSize: "1rem",
                   cursor: "pointer",
                 }}
               >

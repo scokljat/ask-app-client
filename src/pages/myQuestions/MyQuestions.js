@@ -32,7 +32,6 @@ function MyQuestions() {
           <QuestionDetails setModalIsOpen={setModalIsOpen} />
         </Modal>
       )}
-
       <CardWrapper height="85vh" width="100%">
         {!userQuestions?.length ? (
           <Text color={colors.gray}>No questions here</Text>

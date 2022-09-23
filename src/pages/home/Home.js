@@ -34,7 +34,7 @@ function Home() {
 
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [loadMoreIsVisible] = useState(true);
+  const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(true);
 
   searchQuestionId = searchParams.get("question");
   const searchList = searchParams.get("list");
@@ -52,8 +52,10 @@ function Home() {
 
   const handleMoreQuestions = () => {
     setPageSize(pageSize + defaultPageSize);
+    //setLoadMoreIsVisible(false);
   };
 
+  //if (paginatedQuestions === pageSize) setLoadMoreIsVisible(true);
   return (
     <Wrapper>
       {modalIsOpen && (
@@ -71,7 +73,7 @@ function Home() {
         </LinksContainer>
       </LinksWrapper>
 
-      <CardWrapper height="86vh" width="80%">
+      <CardWrapper height="90vh" width="80%">
         {searchList === "all-questions" && (
           <>
             {!paginatedQuestions?.length ? (
@@ -95,6 +97,7 @@ function Home() {
                 style={{
                   fontSize: "1rem",
                   cursor: "pointer",
+                  marginBottom: "1rem",
                 }}
               >
                 Load more...

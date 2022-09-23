@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
   @media (max-width: 430px) {
     padding: 0.18rem;
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     height: 3rem;
   }
 `;
@@ -25,6 +25,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 2.5rem;
+  padding: 0.31rem 0;
 
   @media (max-width: 580px) {
     gap: 0.5rem;

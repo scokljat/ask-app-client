@@ -129,7 +129,9 @@ function FormCard({
           })}
           placeholder={placeholder}
         />
-        {errors.question && <Text>{errors.question.message}</Text>}
+        {errors.question && (
+          <Text color={colors.red}>{errors.question.message}</Text>
+        )}
 
         <Button
           title={isAnswer ? "Add answer" : "Add question"}

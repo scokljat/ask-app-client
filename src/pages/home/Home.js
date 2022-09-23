@@ -34,7 +34,7 @@ function Home() {
 
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(true);
+  const [loadMoreIsVisible] = useState(true);
 
   searchQuestionId = searchParams.get("question");
   const searchList = searchParams.get("list");
@@ -52,10 +52,8 @@ function Home() {
 
   const handleMoreQuestions = () => {
     setPageSize(pageSize + defaultPageSize);
-    //setLoadMoreIsVisible(false);
   };
 
-  //if (paginatedQuestions === pageSize) setLoadMoreIsVisible(true);
   return (
     <Wrapper>
       {modalIsOpen && (

@@ -8,12 +8,12 @@ const QuestionsService = {
 
   getAllQuestions: () => {
     const url =
-      "/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished";
+      "/questions?_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished&_order=des";
     return axios.get(url);
   },
 
   getUserQuestions: (id) => {
-    const url = `/questions?userId=${id}&_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished`;
+    const url = `/questions?userId=${id}&_expand=user&_embed=likes&_embed=dislikes&_sort=dateOfPublished&_order=des`;
     return axios.get(url);
   },
 

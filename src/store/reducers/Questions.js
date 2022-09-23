@@ -18,7 +18,7 @@ const initialState = {
 export const reducerQuestions = (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_PAGINATED_QUESTIONS:
-      return { ...state, paginatedQuestions: payload?.reverse() };
+      return { ...state, paginatedQuestions: payload };
     case FETCH_ALL_QUESTIONS:
       return { ...state, allQuestions: payload?.reverse() };
     case FETCH_USER_QUESTIONS:

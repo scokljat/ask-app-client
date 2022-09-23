@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   padding: 1.25rem;
   background: ${({ theme }) => theme.bgComponent};
   border-radius: 0.31rem;
-  height: 80vh;
 `;
 
 export const Header = styled.div`

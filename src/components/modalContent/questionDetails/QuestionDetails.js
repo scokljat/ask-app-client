@@ -54,10 +54,10 @@ function QuestionDetails({ setModalIsOpen }) {
           }}
         />
       </Header>
-      {/* <Text>
-        {FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
-      </Text> */}
-      <Text>{question?.dateOfPublished}</Text>
+      <Text>
+        {question?.dateOfPublished !== undefined &&
+          FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
+      </Text>
       <Text color={colors.blue} style={{ marginLeft: "0.06rem" }}>
         {question?.user?.firstName} {question?.user?.lastName}
       </Text>

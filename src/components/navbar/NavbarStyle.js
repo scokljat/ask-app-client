@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+
 import { colors } from "../../globalStyles/GlobalStyles";
 
 export const Wrapper = styled.div`
@@ -9,6 +10,11 @@ export const Wrapper = styled.div`
   @media (max-width: 580px) {
     display: flex;
     justify-content: center;
+    height: 1.6rem;
+  }
+
+  @media (max-width: 430px) {
+    padding: 0.18rem;
   }
 `;
 
@@ -19,7 +25,11 @@ export const Container = styled.div`
   margin: 0 2.5rem;
 
   @media (max-width: 580px) {
-    gap: 0.63rem;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 430px) {
+    flex-direction: column;
   }
 `;
 
@@ -48,7 +58,7 @@ export const StyledNavLink = styled(NavLink)`
 
 export const Title = styled.h1`
   color: ${colors.blue};
-  font-size: 24px;
+  font-size: 1.5rem;
 
   @media (max-width: 580px) {
     display: none;

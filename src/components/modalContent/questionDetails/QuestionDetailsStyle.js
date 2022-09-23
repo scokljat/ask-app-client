@@ -28,7 +28,7 @@ export const CommentsContainer = styled.div`
   flex-direction: column;
   margin-top: 0.63rem;
   gap: 0.63rem;
-  height: 42vh;
+  height: ${({ height }) => height};
   overflow: hidden;
   overflow-y: scroll;
 

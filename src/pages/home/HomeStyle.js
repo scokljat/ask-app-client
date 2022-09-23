@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: center;
+    margin: 0rem 1rem;
   }
 `;
 
@@ -72,6 +73,12 @@ export const LinksContainer = styled.div`
     flex-direction: row;
     font-size: 0.9rem;
     gap: 1.25rem;
+    height: 5vh;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.7rem;
+    gap: 1rem;
     height: 5vh;
   }
 `;

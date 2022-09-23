@@ -20,5 +20,13 @@ export const Content = styled.div`
   border-radius: 0.5rem;
   cursor: default;
   width: 40%;
-  height: ${({ isEdit }) => isEdit && "20%"};
+  height: ${({ isEdit }) => isEdit && "25%"};
+
+  @media (max-width: 630px) {
+    width: 60%;
+  }
+
+  @media (max-width: 430px) {
+    width: 80%;
+  }
 `;

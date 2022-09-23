@@ -1,4 +1,5 @@
 import { toast } from "react-hot-toast";
+
 import { colors } from "../../globalStyles/GlobalStyles";
 
 export const showToastMessage = (messageText, type) => {

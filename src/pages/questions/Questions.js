@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import Details from "../../components/cards/details/Details";
 import FormCard from "../../components/cards/form/Form";
 import Modal from "../../components/modal/Modal";

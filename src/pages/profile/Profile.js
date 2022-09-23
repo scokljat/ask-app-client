@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+
 import { ReactComponent as User } from "../../assets/images/user.svg";
 import { ReactComponent as Edit } from "../../assets/images/edit.svg";
 import { ReactComponent as Eye } from "../../assets/images/eye.svg";
@@ -38,14 +39,24 @@ function Profile() {
   });
 
   const onSubmit = (values) => {
-    dispatch(
-      updateUser({
-        firstName: values.firstName,
-        lastName: values.lastName,
-        id: user?.id,
-      })
-    );
-    setEditUserIsClicked(false);
+    if (editUserIsClicked) {
+      dispatch(
+        updateUser({
+          firstName: values.firstName,
+          lastName: values.lastName,
+          id: user?.id,
+        })
+      );
+      setEditUserIsClicked(false);
+    } else {
+      dispatch(
+        updateUser({
+          password: values.password,
+          id: user?.id,
+        })
+      );
+      setEditPasswordIsClicked(false);
+    }
   };
 
   return (

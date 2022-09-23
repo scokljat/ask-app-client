@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+
 import { colors } from "../../globalStyles/GlobalStyles";
 
 export const Wrapper = styled.div`
@@ -12,17 +13,20 @@ export const Form = styled.form`
   flex-direction: column;
   background: ${({ theme }) => theme.bgComponent};
   border-radius: 0.3rem;
-  width: 30%;
+  width: 40%;
   padding: 1.25rem;
   padding-top: 1.8rem;
   gap: 0.63rem;
   margin-top: 1.25rem;
   justify-content: center;
   align-items: center;
-  //box-shadow: rgba(100, 100, 111, 0.2) 0rem 0.4rem 1.8rem 0rem;
 
   @media (max-width: 768px) {
     width: 50%;
+  }
+
+  @media (max-width: 600px) {
+    width: 70%;
   }
 `;
 

@@ -123,13 +123,18 @@ export const dislikeQuestion =
   };
 
 export const deleteQuestion =
-  (questionId, page, pageSize, userId) => async (dispatch) => {
+  (questionId, page, search, pageSize, userId) => async (dispatch) => {
     try {
       await QuestionsService.deleteQuestion(questionId);
+
       if (page === "/questions") {
         dispatch(getAllQuestions());
       } else if (page === "/dashboard") {
-        dispatch(getPaginatedQuestions(pageSize));
+        if (search === "?list=trending-questions") {
+          dispatch(getHotQuestions());
+        } else {
+          dispatch(getPaginatedQuestions(pageSize));
+        }
       } else {
         dispatch(getUserQuestions(userId));
       }
@@ -141,13 +146,18 @@ export const deleteQuestion =
   };
 
 export const updateQuestion =
-  (updatedQuestion, page, pageSize) => async (dispatch) => {
+  (updatedQuestion, page, search, pageSize) => async (dispatch) => {
     try {
       await QuestionsService.updateQuestion(updatedQuestion);
+
       if (page === "/questions") {
         dispatch(getAllQuestions());
       } else if (page === "/dashboard") {
-        dispatch(getPaginatedQuestions(pageSize));
+        if (search === "?list=trending-questions") {
+          dispatch(getHotQuestions());
+        } else {
+          dispatch(getPaginatedQuestions(pageSize));
+        }
       } else {
         dispatch(getUserQuestions(updatedQuestion.userId));
       }

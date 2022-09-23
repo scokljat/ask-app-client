@@ -11,11 +11,11 @@ export const Wrapper = styled.div`
   border: 0.06rem solid ${({ theme }) => theme.background};
 
   @media (max-width: 1300px) {
-    width: 93%;
+    width: ${({ isEdit }) => (isEdit ? "100%" : "93%")};
   }
 
-  @media (max-width: 1000px) {
-    width: 90%;
+  @media (max-width: 968px) {
+    width: ${({ isEdit }) => (isEdit ? "100%" : "90%")};
   }
 `;
 

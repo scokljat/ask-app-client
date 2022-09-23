@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import Details from "../../components/cards/details/Details";
 import Modal from "../../components/modal/Modal";
 import User from "../../components/cards/user/User";
@@ -22,7 +23,6 @@ import { Text } from "../../components/cards/details/DetailsStyle";
 import { colors } from "../../globalStyles/GlobalStyles";
 
 let searchQuestionId;
-
 function Home() {
   const defaultPageSize = 20;
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function Home() {
         </LinksContainer>
       </LinksWrapper>
 
-      <CardWrapper height="90vh" width="80%">
+      <CardWrapper height="86vh" width="80%">
         {searchList === "all-questions" && (
           <>
             {!paginatedQuestions?.length ? (

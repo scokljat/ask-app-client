@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import jwtDecode from "jwt-decode";
 import { useForm } from "react-hook-form";
-import { getUserById } from "../../../store/actions/User";
+
 import Button from "../../button/Button";
+import { updateUser } from "../../../store/actions/User";
 import {
   createQuestion,
   getQuestionById,
   updateQuestion,
 } from "../../../store/actions/Questions";
 import { createAnswer, updateAnswer } from "../../../store/actions/Answers";
-import { Wrapper, StyledTextArea, Form, ButtonWrapper } from "./FormStyle";
-import { Text } from "../../modalContent/questionDetails/QuestionDetailsStyle";
+import { Wrapper, StyledTextArea, Form } from "./FormStyle";
+import { Text } from "../../cards/details/DetailsStyle";
+import { colors } from "../../../globalStyles/GlobalStyles";
 
 let searchQuestion;
 function FormCard({
@@ -27,7 +28,6 @@ function FormCard({
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const decodedUser = jwtDecode(localStorage.getItem("token"));
   const { user } = useSelector((state) => state.reducerUser);
   searchQuestion = searchParams.get("edit");
 
@@ -48,11 +48,14 @@ function FormCard({
     if (isAnswer && !isEdit) {
       dispatch(
         createAnswer({
-          userId: user.id,
+          userId: user?.id,
           questionId: questionId,
           dateOfPublished: new Date(),
           content: values.question,
         })
+      );
+      dispatch(
+        updateUser({ id: user?.id, numberOfAnswers: user?.numberOfAnswers + 1 })
       );
     } else if (isEdit && !isAnswer) {
       dispatch(
@@ -64,6 +67,7 @@ function FormCard({
             userId: question?.userId,
           },
           location.pathname,
+          location.search,
           pageSize
         )
       );
@@ -101,10 +105,10 @@ function FormCard({
       <Form onSubmit={handleSubmit(onSubmit)}>
         {isEdit && (
           <Text
-            color="#0a80ec"
+            color={colors.blue}
             style={{
-              marginBottom: "10px",
-              fontSize: "17px",
+              marginBottom: "0.63rem",
+              fontSize: "1rem",
               fontWeight: "bold",
             }}
           >

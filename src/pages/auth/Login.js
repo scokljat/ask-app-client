@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import Button from "../../components/button/Button";
+
 import { ReactComponent as Mail } from "../../assets/images/mail.svg";
 import { ReactComponent as Eye } from "../../assets/images/eye.svg";
+import Button from "../../components/button/Button";
 import { login } from "../../store/actions/User";
 import { colors } from "../../globalStyles/GlobalStyles";
 import {

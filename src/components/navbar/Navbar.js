@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import { ReactComponent as Logout } from "../../assets/images/log-out.svg";
+import { navbarList } from "../../utils/Constants";
 import Button from "../button/Button";
 import { logout } from "../../store/actions/User";
-import { navbarList } from "../../utils/Constants";
-import { ReactComponent as Logout } from "../../assets/images/log-out.svg";
 import {
   Wrapper,
   Container,

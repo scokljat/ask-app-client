@@ -37,6 +37,7 @@ export const reducerQuestions = (state = initialState, { type, payload }) => {
             userId: payload?.data?.userId,
             content: payload?.data?.content,
             user: payload?.user,
+            numberOfLikes: payload?.numberOfLikes,
             likes: [],
             dislikes: [],
           },

@@ -1,20 +1,22 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { ReactComponent as Close } from "../../../assets/images/close.svg";
 import FormCard from "../../cards/form/Form";
 import Details from "../../cards/details/Details";
 import { getQuestionById } from "../../../store/actions/Questions";
 import { getAnswers } from "../../../store/actions/Answers";
 import FormatUtils from "../../../utils/FormatUtils";
+import { Text } from "../../cards/details/DetailsStyle";
 import {
   Wrapper,
   Header,
-  Text,
   QuestionStatistic,
   Description,
   CommentsContainer,
 } from "./QuestionDetailsStyle";
+import { colors } from "../../../globalStyles/GlobalStyles";
 
 let searchQuestionId;
 function QuestionDetails({ setModalIsOpen }) {
@@ -23,6 +25,7 @@ function QuestionDetails({ setModalIsOpen }) {
   const [searchParams] = useSearchParams();
   const { question } = useSelector((state) => state.reducerQuestions);
   const { answers } = useSelector((state) => state.reducerAnswers);
+  const { isLoggedIn } = useSelector((state) => state.reducerUser);
   searchQuestionId = searchParams.get("question");
 
   useEffect(() => {
@@ -34,8 +37,12 @@ function QuestionDetails({ setModalIsOpen }) {
     <Wrapper onClick={(e) => e.stopPropagation()}>
       <Header>
         <Text
-          color="#0a80ec"
-          style={{ marginBottom: "10px", fontSize: "17px", fontWeight: "bold" }}
+          color={colors.blue}
+          style={{
+            marginBottom: "0.63rem",
+            fontSize: "1rem",
+            fontWeight: "bold",
+          }}
         >
           More informations about question
         </Text>
@@ -51,7 +58,7 @@ function QuestionDetails({ setModalIsOpen }) {
         {FormatUtils.formatDate(question?.dateOfPublished, "dd.MM.yyyy")}
       </Text> */}
       <Text>{question?.dateOfPublished}</Text>
-      <Text color="#0a80ec" style={{ marginLeft: "1px" }}>
+      <Text color={colors.blue} style={{ marginLeft: "0.06rem" }}>
         {question?.user?.firstName} {question?.user?.lastName}
       </Text>
       <Description>{question?.content}</Description>
@@ -60,16 +67,18 @@ function QuestionDetails({ setModalIsOpen }) {
         <Text>{question?.dislikes?.length} dislikes</Text>
         <Text>{answers?.length} comments</Text>
       </QuestionStatistic>
-      <FormCard
-        isAnswer={true}
-        placeholder="Enter answer..."
-        questionId={question?.id}
-      />
-      <CommentsContainer>
+      {isLoggedIn && (
+        <FormCard
+          isAnswer={true}
+          placeholder="Enter answer..."
+          questionId={question?.id}
+        />
+      )}
+      <CommentsContainer height={isLoggedIn ? "43vh" : "58vh"}>
         {answers?.length === 0 ? (
           <Text
-            color=" #82807F"
-            style={{ marginLeft: "10px", marginTop: "10px" }}
+            color={colors.gray}
+            style={{ marginLeft: "0.63rem", marginTop: "0.63rem" }}
           >
             No answers yet.
           </Text>
